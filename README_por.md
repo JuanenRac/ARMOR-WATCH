@@ -148,7 +148,12 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol (as mensagens e as suas verificações) e AlertInbox (os alertas no ecrã)
 │   └── test/                               os mesmos exemplos do contrato e as regras da caixa
-├── wear/                               a app Wear OS: ecrã, serviço Data Layer e runtime
+├── wear/
+│   ├── src/                                o ecrã, o serviço do Data Layer e o runtime
+│   └── build.gradle.kts                    a compilação da app (só com -ParmorWear)
+├── watchos/
+│   ├── Sources/                            o núcleo Swift: mensagens, caixa, sessão
+│   └── App/                                o ecrã e o WatchConnectivity
 ├── tests/                                  o contrato verificado em Python
 ├── docs/                                   o contrato e o protocolo
 ├── tools/                                  verificações e contrato

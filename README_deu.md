@@ -148,7 +148,12 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol (die Nachrichten und ihre Prüfungen) und AlertInbox (die Alarme auf dem Bildschirm)
 │   └── test/                               dieselben Beispiele wie der Vertrag und die Regeln des Posteingangs
-├── wear/                               die Wear-OS-App: Bildschirm, Data-Layer-Dienst und Laufzeit
+├── wear/
+│   ├── src/                                der Bildschirm, der Data-Layer-Dienst und die Laufzeit
+│   └── build.gradle.kts                    der Build der App (nur mit -ParmorWear)
+├── watchos/
+│   ├── Sources/                            der Swift-Kern: Nachrichten, Posteingang, Sitzung
+│   └── App/                                der Bildschirm und WatchConnectivity
 ├── tests/                                  der Vertrag in Python geprüft
 ├── docs/                                   der Vertrag und das Protokoll
 ├── tools/                                  Prüfungen, Vertrag
