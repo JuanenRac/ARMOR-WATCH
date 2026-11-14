@@ -1,0 +1,131 @@
+# =============================================================================
+# A.R.M.O.R. - CI baseline workflow
+# Copyright (C) 2026 JuanenRac (Electro Hobby 3D)
+# GPL-3.0-or-later - see LICENSE
+# =============================================================================
+# CANONICAL TEMPLATE. Vendored as .github/workflows/ci.yml into every
+# A.R.M.O.R. repository by ARMOR-DOCS/tools/sync_ci_tools.py. Edit here,
+# then re-run that script - do not hand-edit a vendored copy.
+#
+# Every step's toolchain setup is conditional on the file that stack always
+# carries (package.json, gradlew, a CMakeLists.txt under tests/, an
+# armor.project.json stack string containing "OpenSCAD", a docker-compose
+# file, or none of those for a pure-Python or pure-Markdown repository), so
+# one workflow file serves every A.R.M.O.R. repository (and
+# ARMOR-UPDATER) without a bespoke copy for each. The real build/test
+# dispatch itself lives in armor_project_tool.py (vendored alongside this
+# file), not duplicated into YAML.
+name: A.R.M.O.R. CI baseline
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+# Read-only token. No job of this file signs or attests anything, so none asks for id-token or attestations: the workflows that do (the APK and package builds)
+# declare id-token: write and attestations: write on that one job only, never here.
+permissions:
+  contents: read
+
+# A newer run of the same branch replaces an older one that is still going; the runs of main are never cancelled.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  baseline:
+    name: Validate manifest, docs and run the real build/test
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.11"
+
+      - name: Validate manifest, version, changelog and README parity
+        run: python tools/armor_ci_validate.py
+
+      # The tests that compare a repository with the contracts (the conformance vectors, the messages a firmware prints, the firmware the nodes share) need the other repositories
+      # next to this one. A checkout only brings its own, so without these steps those tests were skipped and the run came out green having compared nothing.
+      - name: Fetch the repositories the tests compare against
+        if: ${{ github.event.repository.name != 'ARMOR-COMMON' }}
+        run: |
+          git clone --depth 1 https://github.com/JuanenRac/ARMOR-COMMON.git ../ARMOR-COMMON
+          if [ "${GITHUB_REPOSITORY#*/}" = "ARMOR-SERVER" ]; then
+            git clone --depth 1 https://github.com/JuanenRac/ARMOR-SIMULATOR.git ../ARMOR-SIMULATOR
+          fi
+
+      - name: Fetch the node repositories, to compare the firmware they share
+        if: ${{ github.event.repository.name == 'ARMOR-COMMON' }}
+        run: |
+          for repository in ARMOR-NODE-ALARM ARMOR-NODE-ELECTRICAL ARMOR-NODE-HMI ARMOR-NODE-RADAR ARMOR-NODE-SOLAR; do
+            git clone --depth 1 "https://github.com/JuanenRac/${repository}.git" "../${repository}"
+          done
+
+      - name: Install the tools that read the HTTP contract
+        if: ${{ github.event.repository.name == 'ARMOR-COMMON' }}
+        run: python -m pip install --quiet pyyaml openapi-spec-validator jsonschema
+
+      - name: Set up Node.js
+        if: ${{ hashFiles('package.json') != '' }}
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Set up Java for the Android client
+        if: ${{ hashFiles('gradlew') != '' }}
+        uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        with:
+          distribution: temurin
+          java-version: "21"
+          # the Gradle wrapper, its distribution and the dependencies are kept between runs (the key is the build files): the first run fills the cache, the next ones skip the downloads
+          cache: gradle
+
+      - name: Make the Gradle wrapper executable
+        if: ${{ hashFiles('gradlew') != '' }}
+        run: chmod +x gradlew
+
+      - name: Set up CMake and a C++ compiler for the field-node core tests
+        if: ${{ hashFiles('tests/CMakeLists.txt') != '' }}
+        uses: jwlawson/actions-setup-cmake@0d6a7d60b009d01c9e7523be22153ff8f19460d3 # v2
+        with:
+          cmake-version: "3.28"
+
+      - name: Install OpenSCAD for the parametric enclosure
+        if: ${{ hashFiles('scad/node_enclosure_radar.scad') != '' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes openscad
+
+      # The field nodes' tests play the node's MQTT client against a real broker (tests/check_mosquitto.py); here the broker is installed and its absence is a failure, not a skipped check.
+      - name: Install a real MQTT broker for the field-node tests
+        if: ${{ startsWith(github.event.repository.name, 'ARMOR-NODE-') }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes mosquitto
+          sudo systemctl stop mosquitto || true
+
+      # ruff and mypy at pinned versions: ruff over the whole checkout, mypy over src/ where there is a mypy configuration and over tools/ and scripts/ wherever they hold Python; "ci_lint = false" under [tool.armor] in pyproject.toml skips the step and "lint_tools = false" leaves out only tools/ and scripts/.
+      - name: Lint and type-check
+        run: python tools/armor_project_tool.py lint .
+
+      - name: Run this project's real build and test
+        run: python tools/armor_project_tool.py build-test .
+        env:
+          PYTHONPATH: src
+          ARMOR_REQUIRE_MOSQUITTO: ${{ startsWith(github.event.repository.name, 'ARMOR-NODE-') && '1' || '' }}
+          # A comparison with another repository that cannot be made is a failure here, not a skipped test.
+          ARMOR_REQUIRE_SIBLINGS: "1"
+
+      # The floor of the test coverage, for a repository that keeps one: docs/coverage_threshold.json holds a number per measure (just under what the tests reach) and the package script
+      # `coverage` fails below it. Raising a floor is a change of that file; a repository without the file runs nothing here.
+      - name: Check the test coverage floor
+        if: ${{ hashFiles('package.json') != '' && hashFiles('docs/coverage_threshold.json') != '' }}
+        run: npm run coverage

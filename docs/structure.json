@@ -1,0 +1,326 @@
+{
+  "repo": "ARMOR-WATCH",
+  "ecosystem": "armor",
+  "svg": "en",
+  "cards": [
+    {
+      "name": "src/",
+      "sub": {
+        "en": "the Kotlin core of the watch",
+        "es": "el núcleo Kotlin del reloj",
+        "de": "der Kotlin-Kern der Uhr",
+        "fr": "le noyau Kotlin de la montre",
+        "it": "il nucleo Kotlin dell'orologio",
+        "ja": "ウォッチの Kotlin コア",
+        "zh": "手表的 Kotlin 核心",
+        "pt": "o núcleo Kotlin do relógio"
+      },
+      "span": 3,
+      "accent": "a",
+      "rows": [
+        {
+          "name": "main/",
+          "desc": {
+            "en": "WatchProtocol (the messages and their checks) and AlertInbox (the alerts on the screen)",
+            "es": "WatchProtocol (los mensajes y sus comprobaciones) y AlertInbox (las alertas en pantalla)",
+            "de": "WatchProtocol (die Nachrichten und ihre Prüfungen) und AlertInbox (die Alarme auf dem Bildschirm)",
+            "fr": "WatchProtocol (les messages et leurs contrôles) et AlertInbox (les alertes à l'écran)",
+            "it": "WatchProtocol (i messaggi e i loro controlli) e AlertInbox (gli avvisi sullo schermo)",
+            "ja": "WatchProtocol（メッセージとその検査）と AlertInbox（画面上のアラート）",
+            "zh": "WatchProtocol（消息及其检查）和 AlertInbox（屏幕上的警报）",
+            "pt": "WatchProtocol (as mensagens e as suas verificações) e AlertInbox (os alertas no ecrã)"
+          }
+        },
+        {
+          "name": "test/",
+          "desc": {
+            "en": "the same examples as the contract, and the rules of the inbox",
+            "es": "los mismos ejemplos que el contrato y las reglas de la bandeja",
+            "de": "dieselben Beispiele wie der Vertrag und die Regeln des Posteingangs",
+            "fr": "les mêmes exemples que le contrat et les règles de la boîte",
+            "it": "gli stessi esempi del contratto e le regole della casella",
+            "ja": "契約と同じ例と受信箱のルール",
+            "zh": "与契约相同的示例以及收件箱的规则",
+            "pt": "os mesmos exemplos do contrato e as regras da caixa"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tests/",
+      "span": 1,
+      "tree": {
+        "en": "the contract checked in Python",
+        "es": "el contrato comprobado en Python",
+        "de": "der Vertrag in Python geprüft",
+        "fr": "le contrat vérifié en Python",
+        "it": "il contratto verificato in Python",
+        "ja": "Python で検査した契約",
+        "zh": "用 Python 检查的契约",
+        "pt": "o contrato verificado em Python"
+      },
+      "rows": [
+        {
+          "desc": {
+            "en": "examples and limits",
+            "es": "ejemplos y límites",
+            "de": "Beispiele, Grenzen",
+            "fr": "exemples et limites",
+            "it": "esempi e limiti",
+            "ja": "例と上限",
+            "zh": "示例与限制",
+            "pt": "exemplos e limites"
+          }
+        }
+      ]
+    },
+    {
+      "name": "docs/",
+      "span": 1,
+      "tree": {
+        "en": "the contract and the protocol",
+        "es": "el contrato y el protocolo",
+        "de": "der Vertrag und das Protokoll",
+        "fr": "le contrat et le protocole",
+        "it": "il contratto e il protocollo",
+        "ja": "契約とプロトコル",
+        "zh": "契约与协议",
+        "pt": "o contrato e o protocolo"
+      },
+      "rows": [
+        {
+          "name": "watch_alert_contract.json",
+          "desc": {
+            "en": "the contract",
+            "es": "el contrato",
+            "de": "der Vertrag",
+            "fr": "le contrat",
+            "it": "il contratto",
+            "ja": "契約",
+            "zh": "契约",
+            "pt": "o contrato"
+          }
+        },
+        {
+          "name": "PROTOCOL.md",
+          "desc": {
+            "en": "the protocol notes",
+            "es": "las notas del protocolo",
+            "de": "die Protokollnotizen",
+            "fr": "les notes du protocole",
+            "it": "le note del protocollo",
+            "ja": "プロトコルの説明",
+            "zh": "协议说明",
+            "pt": "as notas do protocolo"
+          }
+        },
+        {
+          "name": "architecture.json",
+          "desc": {
+            "en": "picture source",
+            "es": "origen del dibujo",
+            "de": "Bildquelle",
+            "fr": "source de l'image",
+            "it": "sorgente del disegno",
+            "ja": "図の元データ",
+            "zh": "图的数据源",
+            "pt": "origem do desenho"
+          }
+        },
+        {
+          "name": "structure.json",
+          "desc": {
+            "en": "picture source",
+            "es": "origen del dibujo",
+            "de": "Bildquelle",
+            "fr": "source de l'image",
+            "it": "sorgente del disegno",
+            "ja": "図の元データ",
+            "zh": "图的数据源",
+            "pt": "origem do desenho"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tools/ gradle/",
+      "kind": "group",
+      "span": 1,
+      "rows": [
+        {
+          "name": "tools/",
+          "desc": {
+            "en": "checks and contract",
+            "es": "comprobaciones y contrato",
+            "de": "Prüfungen, Vertrag",
+            "fr": "contrôles et contrat",
+            "it": "controlli e contratto",
+            "ja": "検査と契約",
+            "zh": "检查与契约",
+            "pt": "verificações e contrato"
+          }
+        },
+        {
+          "name": "gradle/",
+          "desc": {
+            "en": "Gradle wrapper",
+            "es": "wrapper de Gradle",
+            "de": "Gradle-Wrapper",
+            "fr": "wrapper Gradle",
+            "it": "wrapper Gradle",
+            "ja": "Gradle ラッパー",
+            "zh": "Gradle 包装器",
+            "pt": "wrapper do Gradle"
+          }
+        }
+      ]
+    },
+    {
+      "name": ".github/ images/",
+      "kind": "group",
+      "span": 3,
+      "columns": 2,
+      "rows": [
+        {
+          "name": ".github/",
+          "desc": {
+            "en": "CI workflow, issue and pull-request templates",
+            "es": "flujo de CI y plantillas de issues y pull requests",
+            "de": "CI-Workflow sowie Vorlagen für Issues und Pull Requests",
+            "fr": "workflow CI et modèles d'issues et de pull requests",
+            "it": "workflow CI e modelli per issue e pull request",
+            "ja": "CI ワークフローと Issue・Pull Request のテンプレート",
+            "zh": "CI 工作流以及 Issue 和 Pull Request 模板",
+            "pt": "fluxo de CI e modelos de issues e pull requests"
+          }
+        },
+        {
+          "name": "images/",
+          "desc": {
+            "en": "banner, icon and the two pictures of the README",
+            "es": "banner, icono y los dos dibujos del README",
+            "de": "Banner, Symbol und die zwei Bilder des READMEs",
+            "fr": "bannière, icône et les deux images du README",
+            "it": "banner, icona e le due immagini del README",
+            "ja": "バナー、アイコン、README の 2 つの図",
+            "zh": "横幅图、图标和 README 的两幅图",
+            "pt": "banner, ícone e os dois desenhos do README"
+          }
+        }
+      ]
+    },
+    {
+      "name": {
+        "en": "Files at the root",
+        "es": "Ficheros en la raíz",
+        "de": "Dateien im Wurzelverzeichnis",
+        "fr": "Fichiers à la racine",
+        "it": "File nella radice",
+        "ja": "ルートのファイル",
+        "zh": "根目录的文件",
+        "pt": "Ficheiros na raiz"
+      },
+      "kind": "group",
+      "span": 3,
+      "columns": 2,
+      "rows": [
+        {
+          "name": "armor.project.json",
+          "desc": {
+            "en": "manifest: version, role, maturity, build command",
+            "es": "manifiesto: versión, rol, madurez, comando de build",
+            "de": "Manifest: Version, Rolle, Reifegrad, Build-Befehl",
+            "fr": "manifeste : version, rôle, maturité, commande de build",
+            "it": "manifesto: versione, ruolo, maturità, comando di build",
+            "ja": "マニフェスト：バージョン、役割、成熟度、ビルドコマンド",
+            "zh": "清单：版本、角色、成熟度、构建命令",
+            "pt": "manifesto: versão, função, maturidade, comando de build"
+          }
+        },
+        {
+          "name": "CHANGELOG.md",
+          "desc": {
+            "en": "what changed in each version",
+            "es": "qué cambió en cada versión",
+            "de": "was sich in jeder Version geändert hat",
+            "fr": "ce qui a changé à chaque version",
+            "it": "cosa è cambiato in ogni versione",
+            "ja": "各バージョンの変更点",
+            "zh": "每个版本的变化",
+            "pt": "o que mudou em cada versão"
+          }
+        },
+        {
+          "name": "SECURITY.md  SUPPORT.md  LICENSE",
+          "tree_name": "SECURITY.md SUPPORT.md LICENSE",
+          "desc": {
+            "en": "security policy, support and license",
+            "es": "política de seguridad, soporte y licencia",
+            "de": "Sicherheitsrichtlinie, Support und Lizenz",
+            "fr": "politique de sécurité, support et licence",
+            "it": "politica di sicurezza, supporto e licenza",
+            "ja": "セキュリティポリシー、サポート、ライセンス",
+            "zh": "安全策略、支持和许可证",
+            "pt": "política de segurança, suporte e licença"
+          }
+        },
+        {
+          "name": "CONTRIBUTING.md  CODE_OF_CONDUCT.md",
+          "tree_name": "CONTRIBUTING.md CODE_OF_CONDUCT.md",
+          "desc": {
+            "en": "how to contribute and the code of conduct",
+            "es": "cómo contribuir y el código de conducta",
+            "de": "wie man beiträgt und der Verhaltenskodex",
+            "fr": "comment contribuer et le code de conduite",
+            "it": "come contribuire e il codice di condotta",
+            "ja": "貢献方法と行動規範",
+            "zh": "如何贡献及行为准则",
+            "pt": "como contribuir e o código de conduta"
+          }
+        },
+        {
+          "name": "build.gradle.kts  settings.gradle.kts",
+          "tree_name": "build.gradle.kts settings.gradle.kts",
+          "desc": {
+            "en": "the Kotlin build",
+            "es": "el build de Kotlin",
+            "de": "der Kotlin-Build",
+            "fr": "le build Kotlin",
+            "it": "il build Kotlin",
+            "ja": "Kotlin のビルド",
+            "zh": "Kotlin 构建",
+            "pt": "o build Kotlin"
+          }
+        },
+        {
+          "name": "gradle.properties  gradlew  gradlew.bat",
+          "tree_name": "gradle.properties gradlew gradlew.bat",
+          "desc": {
+            "en": "Gradle settings and the wrapper scripts",
+            "es": "ajustes de Gradle y scripts del wrapper",
+            "de": "Gradle-Einstellungen und Wrapper-Skripte",
+            "fr": "réglages Gradle et scripts du wrapper",
+            "it": "impostazioni Gradle e script del wrapper",
+            "ja": "Gradle 設定とラッパースクリプト",
+            "zh": "Gradle 设置和包装器脚本",
+            "pt": "definições do Gradle e scripts do wrapper"
+          }
+        },
+        {
+          "name": ".gitattributes  .gitignore",
+          "tree_name": ".gitattributes .gitignore",
+          "desc": {
+            "en": "Git settings",
+            "es": "ajustes de Git",
+            "de": "Git-Einstellungen",
+            "fr": "réglages de Git",
+            "it": "impostazioni di Git",
+            "ja": "Git の設定",
+            "zh": "Git 设置",
+            "pt": "definições do Git"
+          }
+        }
+      ]
+    }
+  ]
+}
