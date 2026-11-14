@@ -27,7 +27,7 @@
 
 ---
 
-**Vérification d'honnêteté - ce qui fonctionne aujourd'hui :** Le contrat des messages, les noyaux Kotlin et Swift et la session de la montre sont testés sur un ordinateur, et l'app Wear OS, l'app Apple Watch et le côté émetteur des apps Android et iPhone se compilent et passent leurs tests en CI ; **rien n'a tourné sur une vraie montre, un émulateur ou un simulateur, et l'app Apple Watch n'est pas encore dans l'app iPhone.**
+**Vérification d'honnêteté - ce qui fonctionne aujourd'hui :** Le contrat des messages, les noyaux Kotlin et Swift et la session de la montre sont testés sur un ordinateur, et l'app Wear OS, l'app Apple Watch et le côté émetteur des apps Android et iPhone se compilent et passent leurs tests en CI ; **rien n'a tourné sur une vraie montre, un émulateur ou un simulateur, et l'app Apple Watch, compilée dans le projet de l'iPhone, n'a jamais été appairée à un vrai iPhone.**
 
 ---
 
@@ -172,7 +172,7 @@ ARMOR-WATCH/
 **Limites connues aujourd'hui**
 
 * L'app Wear OS (`wear/`, compilée avec `-ParmorWear`), l'app Apple Watch (`watchos/`, compilée seulement sur un Mac) et les émetteurs d'ARMOR-ANDROID-CONTROL et d'ARMOR-IOS-CONTROL (désactivés par défaut) se compilent et passent leurs tests en CI, mais rien n'a tourné sur une vraie montre, un émulateur ou un simulateur.
-* L'app Apple Watch n'est pas encore dans l'app iPhone : l'appairage des deux reste à essayer ; un iPhone ne s'appaire pas avec une montre Wear OS ni un téléphone Android avec une Apple Watch.
+* L'app Apple Watch est compilée dans le projet de l'iPhone (intégrée à ARMOR-IOS-CONTROL et compilée pour le simulateur en CI), mais l'appairage des deux reste à essayer sur de vrais appareils ; un iPhone ne s'appaire pas avec une montre Wear OS ni un téléphone Android avec une Apple Watch.
 * Le contrat est conservé ici ; le noyau Kotlin, le noyau Swift et les apps du téléphone exécutent les mêmes exemples.
 
 **Ensuite**

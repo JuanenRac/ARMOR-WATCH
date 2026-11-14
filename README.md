@@ -27,7 +27,7 @@
 
 ---
 
-**Honesty check - what runs today:** The message contract, the Kotlin and Swift cores and the watch session are tested on a computer, and the Wear OS app, the Apple Watch app and the sending side of the Android and iPhone apps are built and pass their tests in CI; **nothing has run on a real watch, an emulator or a simulator, and the Apple Watch app is not yet inside the iPhone app.**
+**Honesty check - what runs today:** The message contract, the Kotlin and Swift cores and the watch session are tested on a computer, and the Wear OS app, the Apple Watch app and the sending side of the Android and iPhone apps are built and pass their tests in CI; **nothing has run on a real watch, an emulator or a simulator, and the Apple Watch app, built inside the iPhone project, has never been paired with a real iPhone.**
 
 ---
 
@@ -172,7 +172,7 @@ ARMOR-WATCH/
 **Known limits today**
 
 * The Wear OS app (`wear/`, built with `-ParmorWear`), the Apple Watch app (`watchos/`, built only on a Mac) and the senders in ARMOR-ANDROID-CONTROL and ARMOR-IOS-CONTROL (off by default) are built and pass their tests in CI, but nothing has run on a real watch, an emulator or a simulator.
-* The Apple Watch app is not yet inside the iPhone app, so the pairing of the two is still to be tried; an iPhone does not pair with a Wear OS watch and an Android phone does not pair with an Apple Watch.
+* The Apple Watch app is built inside the iPhone project (embedded in ARMOR-IOS-CONTROL and built for the simulator in CI), but the pairing of the two is still to be tried on real devices; an iPhone does not pair with a Wear OS watch and an Android phone does not pair with an Apple Watch.
 * The contract is kept here; the Kotlin core, the Swift core and the phone apps run the same examples.
 
 **Next**

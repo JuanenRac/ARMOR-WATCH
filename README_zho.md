@@ -27,7 +27,7 @@
 
 ---
 
-**诚实性检查 - 今天真正能运行的部分：** 消息契约、Kotlin 和 Swift 核心以及手表会话已在电脑上测试，Wear OS 应用、Apple Watch 应用以及 Android 和 iPhone 应用的发送端在 CI 中构建并通过测试；**尚未在真实手表、模拟器或仿真器上运行，Apple Watch 应用也还没有放进 iPhone 应用。**
+**诚实性检查 - 今天真正能运行的部分：** 消息契约、Kotlin 和 Swift 核心以及手表会话已在电脑上测试，Wear OS 应用、Apple Watch 应用以及 Android 和 iPhone 应用的发送端在 CI 中构建并通过测试；**尚未在真实手表、模拟器或仿真器上运行，构建在 iPhone 工程内的 Apple Watch 应用也从未与真实 iPhone 配对。**
 
 ---
 
@@ -172,7 +172,7 @@ ARMOR-WATCH/
 **当前已知限制**
 
 * Wear OS 应用（`wear/`，用 `-ParmorWear` 构建）、Apple Watch 应用（`watchos/`，只在 Mac 上构建）以及 ARMOR-ANDROID-CONTROL 和 ARMOR-IOS-CONTROL 的发送端（默认关闭）在 CI 中构建并通过单元测试，但尚未在真实手表、模拟器或仿真器上运行。
-* Apple Watch 应用还没有放进 iPhone 应用，所以两者的配对尚待试验；iPhone 不能与 Wear OS 手表配对，Android 手机也不能与 Apple Watch 配对。
+* Apple Watch 应用已构建在 iPhone 工程内（嵌入 ARMOR-IOS-CONTROL，并在 CI 中针对模拟器构建），但两者的配对尚待在真实设备上试验；iPhone 不能与 Wear OS 手表配对，Android 手机也不能与 Apple Watch 配对。
 * 契约保存在这里；Kotlin 核心、Swift 核心和手机应用运行相同的示例。
 
 **下一步**

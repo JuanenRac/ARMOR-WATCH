@@ -27,7 +27,7 @@
 
 ---
 
-**正直さのチェック - 今日動いているもの:** メッセージ契約、Kotlin と Swift のコア、ウォッチのセッションはコンピューター上でテストされ、Wear OS アプリ、Apple Watch アプリ、Android と iPhone アプリの送信側は CI でビルドされてテストに合格しています。**実機のウォッチ、エミュレーター、シミュレーターではまだ何も動かしていません。Apple Watch アプリはまだ iPhone アプリの中に入っていません。**
+**正直さのチェック - 今日動いているもの:** メッセージ契約、Kotlin と Swift のコア、ウォッチのセッションはコンピューター上でテストされ、Wear OS アプリ、Apple Watch アプリ、Android と iPhone アプリの送信側は CI でビルドされてテストに合格しています。**実機のウォッチ、エミュレーター、シミュレーターではまだ何も動かしていません。iPhone プロジェクトに組み込んでビルドする Apple Watch アプリは、実機の iPhone とペアリングしたことがありません。**
 
 ---
 
@@ -172,7 +172,7 @@ ARMOR-WATCH/
 **現時点の既知の制限**
 
 * Wear OS アプリ（`wear/`、`-ParmorWear` でビルド）、Apple Watch アプリ（`watchos/`、Mac でのみビルド）、ARMOR-ANDROID-CONTROL と ARMOR-IOS-CONTROL の送信側（既定ではオフ）は CI でビルドされ単体テストに合格していますが、実機のウォッチ、エミュレーター、シミュレーターでは何も動かしていません。
-* Apple Watch アプリはまだ iPhone アプリの中に入っていないため、両者のペアリングは未確認です。iPhone は Wear OS ウォッチと、Android スマートフォンは Apple Watch とペアリングできません。
+* Apple Watch アプリは iPhone プロジェクトに組み込まれており（ARMOR-IOS-CONTROL に埋め込み、CI でシミュレーター向けにビルド）、両者のペアリングは実機では未確認です。iPhone は Wear OS ウォッチと、Android スマートフォンは Apple Watch とペアリングできません。
 * 契約はここで管理されます。Kotlin コア、Swift コア、スマートフォンアプリは同じ例を実行します。
 
 **次のステップ**

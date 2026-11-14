@@ -27,7 +27,7 @@
 
 ---
 
-**Verificação de honestidade - o que funciona hoje:** O contrato das mensagens, os núcleos Kotlin e Swift e a sessão do relógio são testados num computador, e a app Wear OS, a app do Apple Watch e o lado que envia das apps Android e iPhone compilam e passam os seus testes na CI; **nada correu num relógio real, num emulador nem num simulador, e a app do Apple Watch ainda não está dentro da app do iPhone.**
+**Verificação de honestidade - o que funciona hoje:** O contrato das mensagens, os núcleos Kotlin e Swift e a sessão do relógio são testados num computador, e a app Wear OS, a app do Apple Watch e o lado que envia das apps Android e iPhone compilam e passam os seus testes na CI; **nada correu num relógio real, num emulador nem num simulador, e a app do Apple Watch, compilada dentro do projeto do iPhone, nunca foi emparelhada com um iPhone real.**
 
 ---
 
@@ -172,7 +172,7 @@ ARMOR-WATCH/
 **Limites conhecidos hoje**
 
 * A app Wear OS (`wear/`, compilada com `-ParmorWear`), a app do Apple Watch (`watchos/`, compilada só num Mac) e os emissores do ARMOR-ANDROID-CONTROL e do ARMOR-IOS-CONTROL (desligados por predefinição) compilam e passam os testes unitários na CI, mas nada correu num relógio real, num emulador nem num simulador.
-* A app do Apple Watch ainda não está dentro da app do iPhone, por isso o emparelhamento das duas está por tentar; um iPhone não emparelha com um relógio Wear OS nem um telemóvel Android com um Apple Watch.
+* A app do Apple Watch é compilada dentro do projeto do iPhone (incorporada no ARMOR-IOS-CONTROL e compilada para o simulador na CI), mas o emparelhamento das duas está por tentar em dispositivos reais; um iPhone não emparelha com um relógio Wear OS nem um telemóvel Android com um Apple Watch.
 * O contrato fica aqui; o núcleo Kotlin, o núcleo Swift e as apps do telemóvel executam os mesmos exemplos.
 
 **A seguir**

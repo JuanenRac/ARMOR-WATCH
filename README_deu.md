@@ -27,7 +27,7 @@
 
 ---
 
-**Ehrlichkeitsprüfung - was heute läuft:** Der Nachrichtenvertrag, die Kotlin- und Swift-Kerne und die Uhr-Sitzung werden auf einem Computer getestet, und die Wear-OS-App, die Apple-Watch-App und die Sendeseite der Android- und iPhone-Apps werden in CI gebaut und bestehen ihre Tests; **nichts lief auf einer echten Uhr, einem Emulator oder einem Simulator, und die Apple-Watch-App ist noch nicht in der iPhone-App.**
+**Ehrlichkeitsprüfung - was heute läuft:** Der Nachrichtenvertrag, die Kotlin- und Swift-Kerne und die Uhr-Sitzung werden auf einem Computer getestet, und die Wear-OS-App, die Apple-Watch-App und die Sendeseite der Android- und iPhone-Apps werden in CI gebaut und bestehen ihre Tests; **nichts lief auf einer echten Uhr, einem Emulator oder einem Simulator, und die Apple-Watch-App, im iPhone-Projekt mitgebaut, wurde nie mit einem echten iPhone gekoppelt.**
 
 ---
 
@@ -172,7 +172,7 @@ ARMOR-WATCH/
 **Bekannte Grenzen heute**
 
 * Die Wear-OS-App (`wear/`, gebaut mit `-ParmorWear`), die Apple-Watch-App (`watchos/`, nur auf einem Mac gebaut) und die Sender in ARMOR-ANDROID-CONTROL und ARMOR-IOS-CONTROL (standardmäßig aus) werden in CI gebaut und bestehen ihre Unit-Tests, aber nichts lief auf einer echten Uhr, einem Emulator oder einem Simulator.
-* Die Apple-Watch-App ist noch nicht in der iPhone-App, die Kopplung beider ist also noch zu prüfen; ein iPhone koppelt nicht mit einer Wear-OS-Uhr und ein Android-Telefon nicht mit einer Apple Watch.
+* Die Apple-Watch-App wird im iPhone-Projekt mitgebaut (in ARMOR-IOS-CONTROL eingebettet und in CI für den Simulator gebaut), die Kopplung beider ist aber auf echten Geräten noch zu prüfen; ein iPhone koppelt nicht mit einer Wear-OS-Uhr und ein Android-Telefon nicht mit einer Apple Watch.
 * Der Vertrag liegt hier; der Kotlin-Kern, der Swift-Kern und die Telefon-Apps führen dieselben Beispiele aus.
 
 **Als Nächstes**
