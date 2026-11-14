@@ -27,7 +27,7 @@
 
 ---
 
-**Controllo di onestà - cosa funziona oggi:** Il contratto dei messaggi, i nuclei Kotlin e Swift e la sessione dell'orologio sono testati su un computer, e l'app Wear OS, l'app Apple Watch e il lato che invia delle app Android e iPhone si compilano e superano i test in CI; **nulla è stato eseguito su un orologio reale, un emulatore o un simulatore, e l'app Apple Watch non è ancora dentro l'app iPhone.**
+**Controllo di onestà - cosa funziona oggi:** Il contratto dei messaggi, i nuclei Kotlin e Swift e la sessione dell'orologio sono testati su un computer, e l'app Wear OS, l'app Apple Watch e il lato che invia delle app Android e iPhone si compilano e superano i test in CI; **nulla è stato eseguito su un orologio reale, un emulatore o un simulatore, e l'app Apple Watch, compilata nel progetto dell'iPhone, non è mai stata associata a un iPhone reale.**
 
 ---
 
@@ -172,7 +172,7 @@ ARMOR-WATCH/
 **Limiti noti oggi**
 
 * L'app Wear OS (`wear/`, compilata con `-ParmorWear`), l'app Apple Watch (`watchos/`, compilata solo su un Mac) e i mittenti di ARMOR-ANDROID-CONTROL e ARMOR-IOS-CONTROL (spenti per impostazione predefinita) si compilano e superano i test in CI, ma nulla è stato eseguito su un orologio reale, un emulatore o un simulatore.
-* L'app Apple Watch non è ancora dentro l'app iPhone: l'associazione dei due è ancora da provare; un iPhone non si associa a un orologio Wear OS né un telefono Android a un Apple Watch.
+* L'app Apple Watch è compilata nel progetto dell'iPhone (incorporata in ARMOR-IOS-CONTROL e compilata per il simulatore in CI), ma l'associazione dei due è ancora da provare su dispositivi reali; un iPhone non si associa a un orologio Wear OS né un telefono Android a un Apple Watch.
 * Il contratto è custodito qui; il nucleo Kotlin, il nucleo Swift e le app del telefono eseguono gli stessi esempi.
 
 **Prossimi passi**
