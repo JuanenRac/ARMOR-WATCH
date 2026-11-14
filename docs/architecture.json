@@ -1,0 +1,118 @@
+{
+  "repo": "ARMOR-WATCH",
+  "ecosystem": "armor",
+  "tagline": "A minimal watch for A.R.M.O.R.: it shows the alarms the phone sends and confirms one back; it keeps nothing and holds no session.",
+  "description": "ARMOR-WATCH is the minimal client on the wrist. The phone (ARMOR-ANDROID-CONTROL or ARMOR-IOS-CONTROL) sends a short alert or notice only when the option of the watch is on; the watch shows it and the person confirms an alarm with a tap, which sends one identifier back for the phone to check and carry out with its own session. The Kotlin core (messages and inbox) is tested on a computer; the Wear OS screen and the Data Layer service are not written yet and nothing has run on a real watch.",
+  "columns": [
+    "WHO USES IT",
+    "THIS REPOSITORY",
+    "WHAT IT TALKS TO"
+  ],
+  "nodes": [
+    {
+      "id": "user",
+      "column": 0,
+      "level": "external",
+      "title": "The person",
+      "lines": [
+        "wears a Wear OS watch",
+        "paired with the phone",
+        "that runs the A.R.M.O.R. app"
+      ]
+    },
+    {
+      "id": "screen",
+      "column": 1,
+      "level": "untested",
+      "title": "Wear OS screen",
+      "lines": [
+        "shows the alert, one tap to",
+        "confirm an alarm; not written",
+        "yet, needs a real watch"
+      ]
+    },
+    {
+      "id": "core",
+      "column": 1,
+      "level": "tested",
+      "title": "src/ (Kotlin core)",
+      "lines": [
+        "WatchProtocol and AlertInbox:",
+        "checks every message, keeps",
+        "alerts in memory only"
+      ],
+      "code": [
+        "src/main/kotlin/armor/watch/WatchProtocol.kt",
+        "src/main/kotlin/armor/watch/AlertInbox.kt"
+      ]
+    },
+    {
+      "id": "contract",
+      "column": 1,
+      "level": "contract",
+      "title": "watch_alert_contract.json",
+      "lines": [
+        "the messages, the limits and",
+        "the examples both sides run;",
+        "tools/watch_contract.py"
+      ],
+      "code": [
+        "docs/watch_alert_contract.json",
+        "tools/watch_contract.py"
+      ]
+    },
+    {
+      "id": "phone",
+      "column": 2,
+      "level": "external",
+      "title": "The phone app",
+      "lines": [
+        "the Android and iOS apps",
+        "send the alerts and carry",
+        "out the confirmation"
+      ]
+    },
+    {
+      "id": "server",
+      "column": 2,
+      "level": "external",
+      "title": "ARMOR-SERVER",
+      "lines": [
+        "reached only by the phone,",
+        "with the session of the person"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "user",
+      "to": "screen",
+      "label": "",
+      "level": "untested"
+    },
+    {
+      "from": "screen",
+      "to": "core",
+      "label": "",
+      "level": "untested"
+    },
+    {
+      "from": "core",
+      "to": "contract",
+      "label": "",
+      "level": "contract"
+    },
+    {
+      "from": "core",
+      "to": "phone",
+      "label": "Data Layer",
+      "level": "untested"
+    },
+    {
+      "from": "phone",
+      "to": "server",
+      "label": "",
+      "level": "contract"
+    }
+  ]
+}

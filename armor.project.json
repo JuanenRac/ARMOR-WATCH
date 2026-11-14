@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "ecosystem": "A.R.M.O.R.",
+  "name": "ARMOR-WATCH",
+  "version": "0.0.1",
+  "role": "Minimal watch client: alarm notices and alarm confirmation",
+  "stack": "Kotlin (JVM core) / Wear OS",
+  "technologies": [
+    "Kotlin",
+    "Wear OS",
+    "Data Layer",
+    "Gradle"
+  ],
+  "deployment_target": "Wear OS 3+ watch paired with the phone",
+  "maturity": "scaffolding",
+  "evidence": "host-test",
+  "family": "Clients",
+  "parent": "ARMOR-ANDROID-CONTROL",
+  "native_version": "0.0.1",
+  "build": "python tools/watch_contract.py && python -m unittest discover -s tests && ./gradlew test",
+  "notes": "The watch shows the alarms and notices the phone chooses to send and lets the person confirm an alarm with one tap; it keeps nothing on the watch and holds no session of ARMOR-SERVER. Today the repository holds the message contract (docs/watch_alert_contract.json, checked in Python), the Kotlin core that reads and checks every message and keeps the alerts in memory (tested on a computer with Gradle) and the protocol notes. The Wear OS screen, the Data Layer service and the sending side in the two phone apps are not written yet, and nothing has run on a watch or an emulator."
+}
