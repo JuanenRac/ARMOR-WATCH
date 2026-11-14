@@ -68,6 +68,11 @@ class AlertInbox(private val now: () -> Long) {
         return AlertAck(alertId)
     }
 
+    /** Takes back the mark of [acknowledge] when the confirmation could not be handed to the phone, so the person can press again. */
+    fun undoAcknowledge(alertId: String) {
+        entries[alertId]?.acknowledged = false
+    }
+
     private fun dropExpired() {
         val limit = now()
         entries.values.removeAll { it.expiresAt <= limit }

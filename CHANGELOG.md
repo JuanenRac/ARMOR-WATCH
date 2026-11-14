@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The watch end of the conversation, tried against a phone that exists only in memory:** `WatchSession` takes the texts of the phone (only on the path of the alerts, only what the contract allows), keeps the alerts in memory and gives the screen a `WatchScreen` to draw (off, quiet or the alerts, most serious first, each with whether it can be confirmed or already was); `confirm` hands the acknowledgement to the phone once and, when the phone cannot be reached, leaves the button to press again. `SimulatedPhone` records what the watch sends and can be made unreachable. Evidence: simulator; the Wear OS screen and the Data Layer service are still not written.
+
 ## [0.0.1] - The message contract between the phone and the watch, and the Kotlin core that reads it
 
 - **The message contract between the phone and the watch:** `docs/watch_alert_contract.json` names the four messages (the switch of the relay, an alert, the clear of an alert and the confirmation the watch sends back), their limits and accepted and rejected examples, and `tools/watch_contract.py` runs them in Python. Everything is off until the phone says the option of the watch is on.
