@@ -27,7 +27,7 @@
 
 ---
 
-**Verificação de honestidade - o que funciona hoje:** O contrato das mensagens e o núcleo Kotlin são testados num computador; **o ecrã Wear OS, o serviço Data Layer e o lado que envia nas apps do telemóvel não estão escritos, e nada correu num relógio nem num emulador.**
+**Verificação de honestidade - o que funciona hoje:** O contrato das mensagens, o núcleo Kotlin e a sessão do relógio são testados num computador, e a app Wear OS e o lado que envia da app Android compilam e passam os seus testes na CI; **nada correu num relógio real nem num emulador, e o iPhone não tem equivalente (não emparelha com um relógio Wear OS).**
 
 ---
 
@@ -38,10 +38,10 @@
 | Versão | `0.0.1` |
 | Maturidade | Estrutura inicial |
 | Função | O cliente de relógio mínimo do A.R.M.O.R. (família: Clients, pai: ARMOR-ANDROID-CONTROL) |
-| Stack | Kotlin (núcleo JVM, Gradle), Wear OS mais tarde; Python 3.11+ para as verificações |
+| Stack | Kotlin (núcleo JVM e a app Wear OS com Compose, Gradle); Python 3.11+ para as verificações |
 | Testes | 10 em Python (`python -m unittest discover -s tests`) e os testes Kotlin (`./gradlew test`) |
 | Mensagens | O interruptor do relé, um alerta, a limpeza de um alerta e a confirmação de volta |
-| Corre em | Qualquer computador com JDK 21 (núcleo); um relógio Wear OS 3+ emparelhado com o telemóvel (ecrã, por escrever) |
+| Corre em | Qualquer computador com JDK 21 (núcleo); um relógio Wear OS 3+ emparelhado com o telemóvel (app compilada na CI, nunca executada) |
 | Em hardware real | Nenhum ainda: nenhum relógio ou emulador o executou |
 | Licença | GPL-3.0-or-later |
 
@@ -55,9 +55,9 @@ Cada linha é uma parte deste repositório e a luz diz até onde chega hoje. É 
 
 | Área | Estado | O que significa aqui |
 |---|---|---|
-| Software | 🟡 | O núcleo Kotlin lê e verifica cada mensagem e guarda os alertas em memória; o ecrã Wear OS e o serviço Data Layer não estão escritos. |
+| Software | 🟡 | O núcleo Kotlin lê e verifica cada mensagem e guarda os alertas em memória; a app Wear OS (ecrã e serviço Data Layer) e o emissor da app Android estão escritos. |
 | Testes | 🟡 | 10 testes Python e os testes Kotlin executam os mesmos exemplos aceites e recusados do contrato; os testes Kotlin correm na CI. |
-| Hardware | 🔴 | Nenhum relógio ou emulador o executou; o ecrã, o Data Layer e o lado que envia nas apps do telemóvel estão pendentes. |
+| Hardware | 🔴 | Nenhum relógio nem emulador a executou; a app e o Data Layer só são compilados e testados com testes unitários na CI. |
 | Documentação | 🟡 | Oito idiomas, as notas do protocolo e o contrato estão escritos e atualizados. |
 
 ## 🎯 Visão geral
@@ -148,9 +148,7 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol (as mensagens e as suas verificações) e AlertInbox (os alertas no ecrã)
 │   └── test/                               os mesmos exemplos do contrato e as regras da caixa
-├── wear/
-│   ├── src/                                o ecrã, o serviço do Data Layer e o runtime
-│   └── build.gradle.kts                    a compilação da app (só com -ParmorWear)
+├── wear/                               a app Wear OS: ecrã, serviço Data Layer e runtime
 ├── tests/                                  o contrato verificado em Python
 ├── docs/                                   o contrato e o protocolo
 ├── tools/                                  verificações e contrato
@@ -172,15 +170,13 @@ ARMOR-WATCH/
 
 **Limites conhecidos hoje**
 
-* O ecrã Wear OS, o serviço Data Layer (`/armor/alert` para o relógio, `/armor/alert/ack` para o telemóvel) e o lado que envia no ARMOR-ANDROID-CONTROL e no ARMOR-IOS-CONTROL não estão escritos.
-* Nada correu num relógio real nem num emulador.
-* O contrato vive aqui; as apps do telemóvel terão uma cópia idêntica que executa os mesmos exemplos.
+* A app Wear OS (`wear/`, compilada com `-ParmorWear`) e o emissor do ARMOR-ANDROID-CONTROL (desligado por predefinição) compilam e passam os testes unitários na CI, mas nada correu num relógio real nem num emulador.
+* Um iPhone não emparelha com um relógio Wear OS, por isso o ARMOR-IOS-CONTROL não tem equivalente (um Apple Watch seria outra app).
+* O contrato fica aqui; a app Android tem as mesmas regras e executa os mesmos exemplos.
 
 **A seguir**
 
-* Escrever o ecrã Wear OS e o serviço Data Layer sobre o `AlertInbox`, com a opção desligada por predefinição.
-* Acrescentar o emissor e a opção dos alertas do relógio à app Android, e o port à app iOS.
-* Prová-lo num relógio real: emparelhá-lo, ativar a opção, lançar um alarme de teste, vê-lo no relógio, confirmá-lo com um toque e vê-lo confirmado no ARMOR-SERVER; depois desligar a opção e ver o alerta desaparecer.
+* Prová-lo num relógio real: emparelhá-lo, ativar a opção, lançar um alarme de teste, vê-lo no relógio, confirmá-lo com um toque e ver a confirmação no ARMOR-SERVER; depois desligar a opção e ver o aviso desaparecer.
 
 ## 🌍 Idiomas
 
