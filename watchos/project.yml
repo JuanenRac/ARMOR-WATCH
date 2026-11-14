@@ -1,0 +1,40 @@
+# ARMOR-WATCH - the Xcode project of the Apple Watch app, described for XcodeGen (https://github.com/yonaskolb/XcodeGen).
+# On a Mac:  brew install xcodegen && xcodegen generate   (the workflow watchos-build.yml does it and builds the app for the watchOS simulator)
+# The rules of the app live in the Swift package of this folder (ArmorWatchCore); the app target only holds the screen and WatchConnectivity.
+name: ARMOR-WATCH
+options:
+  bundleIdPrefix: es.electrohobby3d
+  deploymentTarget:
+    watchOS: "10.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+packages:
+  ArmorWatchCore:
+    path: .
+targets:
+  ArmorWatch:
+    type: application
+    platform: watchOS
+    sources:
+      - path: App
+    dependencies:
+      - package: ArmorWatchCore
+        product: ArmorWatchCore
+    info:
+      path: Generated/Info.plist
+      properties:
+        CFBundleDisplayName: A.R.M.O.R.
+        CFBundleShortVersionString: "0.0.1"
+        CFBundleVersion: "1"
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, es, de, fr, it, ja, zh-Hans, pt-PT]
+        # a watch app that needs the iPhone of the person: it has no login and no network of its own
+        WKApplication: true
+        WKCompanionAppBundleIdentifier: es.electrohobby3d.armor.ios
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: es.electrohobby3d.armor.ios.watchkitapp
+        MARKETING_VERSION: "0.0.1"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.9"
+        CODE_SIGNING_ALLOWED: NO

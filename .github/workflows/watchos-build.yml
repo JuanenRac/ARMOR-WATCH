@@ -1,0 +1,58 @@
+# =============================================================================
+# A.R.M.O.R. - Build check of the Apple Watch app
+# Copyright (C) 2026 JuanenRac (Electro Hobby 3D)
+# GPL-3.0-or-later - see LICENSE
+# =============================================================================
+# Started by hand only (workflow_dispatch), on a macOS runner (it is the only place Swift for watchOS builds). It runs the tests of the Swift core of watchos/ (`swift test`: the contract
+# examples, the inbox, the session and the runtime) and builds the app for the watchOS simulator (XcodeGen, then xcodebuild, with no signing). It publishes nothing and signs nothing; the app has
+# never run on a watch or in a simulator.
+
+name: Apple Watch app build check
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch, tag or commit of this repository"
+        type: string
+        required: true
+        default: main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: watchos-build-${{ inputs.ref }}
+  cancel-in-progress: false
+
+jobs:
+  core:
+    name: Swift core tests
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+      - name: Run the tests of the core
+        working-directory: watchos
+        run: swift test
+
+  app:
+    name: Build the app for the watchOS simulator
+    runs-on: macos-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+      - name: Generate the project and build
+        working-directory: watchos
+        run: |
+          brew install xcodegen
+          xcodegen generate
+          xcodebuild -project ARMOR-WATCH.xcodeproj -scheme ArmorWatch -destination 'generic/platform=watchOS Simulator' build CODE_SIGNING_ALLOWED=NO
