@@ -27,7 +27,7 @@
 
 ---
 
-**诚实性检查 - 今天真正能运行的部分：** 消息契约、Kotlin 核心和手表会话已在电脑上测试，Wear OS 应用和 Android 应用的发送端在 CI 中构建并通过测试；**尚未在真实手表或模拟器上运行，iPhone 没有对应物（它不能与 Wear OS 手表配对）。**
+**诚实性检查 - 今天真正能运行的部分：** 消息契约、Kotlin 和 Swift 核心以及手表会话已在电脑上测试，Wear OS 应用、Apple Watch 应用以及 Android 和 iPhone 应用的发送端在 CI 中构建并通过测试；**尚未在真实手表、模拟器或仿真器上运行，Apple Watch 应用也还没有放进 iPhone 应用。**
 
 ---
 
@@ -38,10 +38,10 @@
 | 版本 | `0.0.1` |
 | 成熟度 | 雏形 |
 | 角色 | A.R.M.O.R. 的极简手表客户端（家族：Clients，上级：ARMOR-ANDROID-CONTROL） |
-| 技术栈 | Kotlin（JVM 核心和使用 Compose 的 Wear OS 应用，Gradle）；检查用 Python 3.11+ |
+| 技术栈 | Kotlin（JVM 核心和使用 Compose 的 Wear OS 应用，Gradle），Swift（核心和使用 SwiftUI 的 Apple Watch 应用）；检查用 Python 3.11+ |
 | 测试 | Python 中 10 个（`python -m unittest discover -s tests`）和 Kotlin 测试（`./gradlew test`） |
 | 消息 | 转发开关、一条警报、警报的清除以及回传的确认 |
-| 运行于 | 任何带 JDK 21 的电脑（核心）；与手机配对的 Wear OS 3+ 手表（应用已在 CI 中构建，尚未运行） |
+| 运行于 | 任何带 JDK 21 的电脑（Kotlin 核心）或 Mac（Swift 核心）；与手机配对的 Wear OS 3+ 手表或 Apple Watch（应用已在 CI 中构建，尚未运行） |
 | 真实硬件 | 尚无：没有手表或模拟器运行过 |
 | 许可证 | GPL-3.0-or-later |
 
@@ -55,9 +55,9 @@
 
 | 领域 | 状态 | 在这里的含义 |
 |---|---|---|
-| 软件 | 🟡 | Kotlin 核心读取并检查每条消息，并把警报保存在内存中；Wear OS 应用（界面和 Data Layer 服务）以及 Android 应用中的发送端已编写。 |
+| 软件 | 🟡 | Kotlin 和 Swift 核心读取并检查每条消息，并把警报保存在内存中；Wear OS 应用、Apple Watch 应用以及 Android 和 iPhone 应用中的发送端已编写。 |
 | 测试 | 🟡 | 10 个 Python 测试和 Kotlin 测试运行契约中相同的被接受和被拒绝示例；Kotlin 测试在 CI 中运行。 |
-| 硬件 | 🔴 | 没有手表或模拟器运行过它；应用和 Data Layer 只在 CI 中构建并做单元测试。 |
+| 硬件 | 🔴 | 没有手表、模拟器或仿真器运行过它们；应用只在 CI 中构建并做单元测试。 |
 | 文档 | 🟡 | 八种语言、协议说明和契约均已编写并保持最新。 |
 
 ## 🎯 概述
@@ -148,12 +148,8 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol（消息及其检查）和 AlertInbox（屏幕上的警报）
 │   └── test/                               与契约相同的示例以及收件箱的规则
-├── wear/
-│   ├── src/                                屏幕、Data Layer 服务和运行时
-│   └── build.gradle.kts                    应用的构建（仅在使用 -ParmorWear 时）
-├── watchos/
-│   ├── Sources/                            Swift 核心：消息、收件箱、会话
-│   └── App/                                屏幕和 WatchConnectivity
+├── wear/                               Wear OS 应用：界面、Data Layer 服务和运行时
+├── watchos/                            Apple Watch 应用：Swift 核心、界面和 WatchConnectivity
 ├── tests/                                  用 Python 检查的契约
 ├── docs/                                   契约与协议
 ├── tools/                                  检查与契约
@@ -175,13 +171,13 @@ ARMOR-WATCH/
 
 **当前已知限制**
 
-* Wear OS 应用（`wear/`，用 `-ParmorWear` 构建）和 ARMOR-ANDROID-CONTROL 的发送端（默认关闭）在 CI 中构建并通过单元测试，但尚未在真实手表或模拟器上运行。
-* iPhone 不能与 Wear OS 手表配对，所以 ARMOR-IOS-CONTROL 没有对应物（Apple Watch 将是另一个应用）。
-* 契约保存在这里；Android 应用持有相同的规则并运行相同的示例。
+* Wear OS 应用（`wear/`，用 `-ParmorWear` 构建）、Apple Watch 应用（`watchos/`，只在 Mac 上构建）以及 ARMOR-ANDROID-CONTROL 和 ARMOR-IOS-CONTROL 的发送端（默认关闭）在 CI 中构建并通过单元测试，但尚未在真实手表、模拟器或仿真器上运行。
+* Apple Watch 应用还没有放进 iPhone 应用，所以两者的配对尚待试验；iPhone 不能与 Wear OS 手表配对，Android 手机也不能与 Apple Watch 配对。
+* 契约保存在这里；Kotlin 核心、Swift 核心和手机应用运行相同的示例。
 
 **下一步**
 
-* 在真实手表上验证：配对，打开选项，触发测试警报，在手表上看到它，轻点确认，并在 ARMOR-SERVER 中看到已确认；然后关闭选项，看到提醒消失。
+* 在每种真实手表上验证：配对，打开选项，触发测试警报，在手表上看到它，轻点确认，并在 ARMOR-SERVER 中看到已确认；然后关闭选项，看到提醒消失。
 
 ## 🌍 语言
 

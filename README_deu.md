@@ -27,7 +27,7 @@
 
 ---
 
-**Ehrlichkeitsprüfung - was heute läuft:** Der Nachrichtenvertrag, der Kotlin-Kern und die Uhr-Sitzung werden auf einem Computer getestet, und die Wear-OS-App und die Sendeseite der Android-App werden in CI gebaut und bestehen ihre Tests; **nichts lief auf einer echten Uhr oder einem Emulator, und das iPhone hat keine Entsprechung (es koppelt nicht mit einer Wear-OS-Uhr).**
+**Ehrlichkeitsprüfung - was heute läuft:** Der Nachrichtenvertrag, die Kotlin- und Swift-Kerne und die Uhr-Sitzung werden auf einem Computer getestet, und die Wear-OS-App, die Apple-Watch-App und die Sendeseite der Android- und iPhone-Apps werden in CI gebaut und bestehen ihre Tests; **nichts lief auf einer echten Uhr, einem Emulator oder einem Simulator, und die Apple-Watch-App ist noch nicht in der iPhone-App.**
 
 ---
 
@@ -38,10 +38,10 @@
 | Version | `0.0.1` |
 | Reifegrad | Gerüst |
 | Rolle | Der minimale Uhren-Client von A.R.M.O.R. (Familie: Clients, Eltern: ARMOR-ANDROID-CONTROL) |
-| Stack | Kotlin (JVM-Kern und die Wear-OS-App mit Compose, Gradle); Python 3.11+ für die Prüfungen |
+| Stack | Kotlin (JVM-Kern und die Wear-OS-App mit Compose, Gradle), Swift (Kern und die Apple-Watch-App mit SwiftUI); Python 3.11+ für die Prüfungen |
 | Tests | 10 in Python (`python -m unittest discover -s tests`) und die Kotlin-Tests (`./gradlew test`) |
 | Nachrichten | Der Schalter des Relays, ein Alarm, das Löschen eines Alarms und die Bestätigung zurück |
-| Läuft auf | Jedem Computer mit JDK 21 (Kern); einer Wear-OS-3+-Uhr, gekoppelt mit dem Telefon (App in CI gebaut, nie ausgeführt) |
+| Läuft auf | Jedem Computer mit JDK 21 (Kotlin-Kern) oder einem Mac (Swift-Kern); einer Wear-OS-3+-Uhr oder einer Apple Watch, gekoppelt mit dem Telefon (Apps in CI gebaut, nie ausgeführt) |
 | Auf echter Hardware | Noch nicht: keine Uhr und kein Emulator hat es ausgeführt |
 | Lizenz | GPL-3.0-or-later |
 
@@ -55,9 +55,9 @@ Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heut
 
 | Bereich | Stand | Was das hier bedeutet |
 |---|---|---|
-| Software | 🟡 | Der Kotlin-Kern liest und prüft jede Nachricht und hält die Alarme im Speicher; die Wear-OS-App (Bildschirm und Data-Layer-Dienst) und der Sender in der Android-App sind geschrieben. |
+| Software | 🟡 | Die Kotlin- und Swift-Kerne lesen und prüfen jede Nachricht und halten die Alarme im Speicher; die Wear-OS-App, die Apple-Watch-App und die Sender in den Android- und iPhone-Apps sind geschrieben. |
 | Tests | 🟡 | 10 Python-Tests und die Kotlin-Tests führen dieselben angenommenen und abgelehnten Beispiele des Vertrags aus; die Kotlin-Tests laufen in der CI. |
-| Hardware | 🔴 | Keine Uhr und kein Emulator hat sie ausgeführt; App und Data Layer werden nur in CI gebaut und per Unit-Test geprüft. |
+| Hardware | 🔴 | Keine Uhr, kein Emulator und kein Simulator hat sie ausgeführt; die Apps werden nur in CI gebaut und per Unit-Test geprüft. |
 | Dokumentation | 🟡 | Acht Sprachen, die Protokollnotizen und der Vertrag sind geschrieben und aktuell. |
 
 ## 🎯 Überblick
@@ -148,12 +148,8 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol (die Nachrichten und ihre Prüfungen) und AlertInbox (die Alarme auf dem Bildschirm)
 │   └── test/                               dieselben Beispiele wie der Vertrag und die Regeln des Posteingangs
-├── wear/
-│   ├── src/                                der Bildschirm, der Data-Layer-Dienst und die Laufzeit
-│   └── build.gradle.kts                    der Build der App (nur mit -ParmorWear)
-├── watchos/
-│   ├── Sources/                            der Swift-Kern: Nachrichten, Posteingang, Sitzung
-│   └── App/                                der Bildschirm und WatchConnectivity
+├── wear/                               die Wear-OS-App: Bildschirm, Data-Layer-Dienst und Laufzeit
+├── watchos/                            die Apple-Watch-App: Swift-Kern, Bildschirm und WatchConnectivity
 ├── tests/                                  der Vertrag in Python geprüft
 ├── docs/                                   der Vertrag und das Protokoll
 ├── tools/                                  Prüfungen, Vertrag
@@ -175,13 +171,13 @@ ARMOR-WATCH/
 
 **Bekannte Grenzen heute**
 
-* Die Wear-OS-App (`wear/`, gebaut mit `-ParmorWear`) und der Sender in ARMOR-ANDROID-CONTROL (standardmäßig aus) werden in CI gebaut und bestehen ihre Unit-Tests, aber nichts lief auf einer echten Uhr oder einem Emulator.
-* Ein iPhone koppelt nicht mit einer Wear-OS-Uhr, daher hat ARMOR-IOS-CONTROL keine Entsprechung (eine Apple Watch wäre eine andere App).
-* Der Vertrag liegt hier; die Android-App enthält dieselben Regeln und führt dieselben Beispiele aus.
+* Die Wear-OS-App (`wear/`, gebaut mit `-ParmorWear`), die Apple-Watch-App (`watchos/`, nur auf einem Mac gebaut) und die Sender in ARMOR-ANDROID-CONTROL und ARMOR-IOS-CONTROL (standardmäßig aus) werden in CI gebaut und bestehen ihre Unit-Tests, aber nichts lief auf einer echten Uhr, einem Emulator oder einem Simulator.
+* Die Apple-Watch-App ist noch nicht in der iPhone-App, die Kopplung beider ist also noch zu prüfen; ein iPhone koppelt nicht mit einer Wear-OS-Uhr und ein Android-Telefon nicht mit einer Apple Watch.
+* Der Vertrag liegt hier; der Kotlin-Kern, der Swift-Kern und die Telefon-Apps führen dieselben Beispiele aus.
 
 **Als Nächstes**
 
-* Auf einer echten Uhr beweisen: koppeln, die Option einschalten, einen Testalarm auslösen, ihn auf der Uhr sehen, mit einem Tipp bestätigen und die Bestätigung in ARMOR-SERVER sehen; dann die Option ausschalten und die Meldung verschwinden sehen.
+* Auf einer echten Uhr jeder Art beweisen: koppeln, die Option einschalten, einen Testalarm auslösen, ihn auf der Uhr sehen, mit einem Tipp bestätigen und die Bestätigung in ARMOR-SERVER sehen; dann die Option ausschalten und die Meldung verschwinden sehen.
 
 ## 🌍 Sprachen
 
