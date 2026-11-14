@@ -27,7 +27,7 @@
 
 ---
 
-**Honesty check - what runs today:** The message contract and the Kotlin core are tested on a computer; **the Wear OS screen, the Data Layer service and the sending side in the phone apps are not written, and nothing has run on a watch or an emulator.**
+**Honesty check - what runs today:** The message contract, the Kotlin core and the watch session are tested on a computer, and the Wear OS app and the sending side of the Android app compile and pass their tests in CI; **nothing has run on a real watch or an emulator, and the iPhone has no counterpart (it does not pair with a Wear OS watch).**
 
 ---
 
@@ -38,10 +38,10 @@
 | Version | `0.0.1` |
 | Maturity | Scaffolding |
 | Role | The minimal watch client of A.R.M.O.R. (family: Clients, parent: ARMOR-ANDROID-CONTROL) |
-| Stack | Kotlin (JVM core, Gradle), Wear OS later; Python 3.11+ for the checks |
+| Stack | Kotlin (JVM core and the Wear OS app with Compose, Gradle); Python 3.11+ for the checks |
 | Tests | 10 in Python (`python -m unittest discover -s tests`) and the Kotlin tests (`./gradlew test`) |
 | Messages | The switch of the relay, an alert, the clear of an alert and the confirmation back |
-| Runs on | Any computer with a JDK 21 (core); a Wear OS 3+ watch paired with the phone (screen, not written) |
+| Runs on | Any computer with a JDK 21 (core); a Wear OS 3+ watch paired with the phone (app compiled in CI, never run) |
 | On real hardware | None yet: no watch or emulator has run it |
 | License | GPL-3.0-or-later |
 
@@ -55,9 +55,9 @@ Each line is one part of this repository and the light says how far it is today.
 
 | Area | State | What it means here |
 |---|---|---|
-| Software | 🟡 | The Kotlin core reads and checks every message and keeps the alerts in memory; the Wear OS screen and the Data Layer service are not written. |
+| Software | 🟡 | The Kotlin core reads and checks every message and keeps the alerts in memory; the Wear OS app (screen and Data Layer service) and the sender in the Android app are written. |
 | Tests | 🟡 | 10 Python tests and the Kotlin tests run the same accepted and rejected examples of the contract; the Kotlin tests run in CI. |
-| Hardware | 🔴 | No watch or emulator has run it; the screen, the Data Layer and the sending side in the phone apps are pending. |
+| Hardware | 🔴 | No watch or emulator has run it; the app and the Data Layer are only compiled and unit-tested in CI. |
 | Documentation | 🟡 | Eight languages, the protocol notes and the contract are written and up to date. |
 
 ## 🎯 Overview
@@ -148,9 +148,7 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol (the messages and their checks) and AlertInbox (the alerts on the screen)
 │   └── test/                               the same examples as the contract, and the rules of the inbox
-├── wear/
-│   ├── src/                                the screen, the Data Layer service and the runtime
-│   └── build.gradle.kts                    the build of the app (only with -ParmorWear)
+├── wear/                               the Wear OS app: screen, Data Layer service and runtime
 ├── tests/                                  the contract checked in Python
 ├── docs/                                   the contract and the protocol
 ├── tools/                                  checks and contract
@@ -172,14 +170,12 @@ ARMOR-WATCH/
 
 **Known limits today**
 
-* The Wear OS screen, the Data Layer service (`/armor/alert` to the watch, `/armor/alert/ack` to the phone) and the sending side in ARMOR-ANDROID-CONTROL and ARMOR-IOS-CONTROL are not written.
-* Nothing has run on a real watch or an emulator.
-* The contract is kept here; the phone apps will hold an identical copy that runs the same examples.
+* The Wear OS app (`wear/`, built with `-ParmorWear`) and the sender in ARMOR-ANDROID-CONTROL (off by default) compile and pass their unit tests in CI, but nothing has run on a real watch or an emulator.
+* An iPhone does not pair with a Wear OS watch, so ARMOR-IOS-CONTROL has no counterpart (an Apple Watch would be another app).
+* The contract is kept here; the Android app holds the same rules and runs the same examples.
 
 **Next**
 
-* Write the Wear OS screen and the Data Layer service on top of `AlertInbox`, with the option off by default.
-* Add the sender and the option of the watch alerts to the Android app, and the port to the iOS app.
 * Prove it on a real watch: pair it, switch the option on, raise a test alarm, see it on the watch, confirm it with a tap and see it confirmed in ARMOR-SERVER; then switch the option off and see the alert disappear.
 
 ## 🌍 Languages
