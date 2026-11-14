@@ -90,6 +90,49 @@
       ]
     },
     {
+      "name": "watchos/",
+      "sub": {
+        "en": "the Apple Watch app (needs a Mac)",
+        "es": "la app del Apple Watch (necesita un Mac)",
+        "de": "die Apple-Watch-App (braucht einen Mac)",
+        "fr": "l'app Apple Watch (demande un Mac)",
+        "it": "l'app Apple Watch (richiede un Mac)",
+        "ja": "Apple Watch アプリ（Mac が必要）",
+        "zh": "Apple Watch 应用（需要 Mac）",
+        "pt": "a app do Apple Watch (precisa de um Mac)"
+      },
+      "span": 3,
+      "accent": "b",
+      "rows": [
+        {
+          "name": "Sources/",
+          "desc": {
+            "en": "the Swift core: messages, inbox, session",
+            "es": "el núcleo Swift: mensajes, bandeja, sesión",
+            "de": "der Swift-Kern: Nachrichten, Posteingang, Sitzung",
+            "fr": "le noyau Swift : messages, boîte, session",
+            "it": "il nucleo Swift: messaggi, casella, sessione",
+            "ja": "Swift コア：メッセージ、受信箱、セッション",
+            "zh": "Swift 核心：消息、收件箱、会话",
+            "pt": "o núcleo Swift: mensagens, caixa, sessão"
+          }
+        },
+        {
+          "name": "App/",
+          "desc": {
+            "en": "the screen and WatchConnectivity",
+            "es": "la pantalla y WatchConnectivity",
+            "de": "der Bildschirm und WatchConnectivity",
+            "fr": "l'écran et WatchConnectivity",
+            "it": "lo schermo e WatchConnectivity",
+            "ja": "画面と WatchConnectivity",
+            "zh": "屏幕和 WatchConnectivity",
+            "pt": "o ecrã e o WatchConnectivity"
+          }
+        }
+      ]
+    },
+    {
       "name": "tests/",
       "span": 1,
       "tree": {

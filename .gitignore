@@ -6,3 +6,9 @@ __pycache__/
 *.pyc
 local.properties
 .idea/
+
+# the Apple Watch app: what swift and XcodeGen make
+watchos/.build/
+watchos/Generated/
+watchos/*.xcodeproj/
+watchos/Package.resolved
