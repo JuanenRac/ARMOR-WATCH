@@ -47,6 +47,49 @@
       ]
     },
     {
+      "name": "wear/",
+      "sub": {
+        "en": "the Wear OS app (needs the Android SDK)",
+        "es": "la app de Wear OS (necesita el SDK de Android)",
+        "de": "die Wear-OS-App (braucht das Android-SDK)",
+        "fr": "l'app Wear OS (demande le SDK Android)",
+        "it": "l'app Wear OS (richiede l'SDK Android)",
+        "ja": "Wear OS アプリ（Android SDK が必要）",
+        "zh": "Wear OS 应用（需要 Android SDK）",
+        "pt": "a app Wear OS (precisa do SDK Android)"
+      },
+      "span": 3,
+      "accent": "b",
+      "rows": [
+        {
+          "name": "src/",
+          "desc": {
+            "en": "the screen, the Data Layer service and the runtime",
+            "es": "la pantalla, el servicio del Data Layer y el runtime",
+            "de": "der Bildschirm, der Data-Layer-Dienst und die Laufzeit",
+            "fr": "l'écran, le service Data Layer et le runtime",
+            "it": "lo schermo, il servizio Data Layer e il runtime",
+            "ja": "画面、Data Layer サービス、ランタイム",
+            "zh": "屏幕、Data Layer 服务和运行时",
+            "pt": "o ecrã, o serviço do Data Layer e o runtime"
+          }
+        },
+        {
+          "name": "build.gradle.kts",
+          "desc": {
+            "en": "the build of the app (only with -ParmorWear)",
+            "es": "la compilación de la app (solo con -ParmorWear)",
+            "de": "der Build der App (nur mit -ParmorWear)",
+            "fr": "la compilation de l'app (seulement avec -ParmorWear)",
+            "it": "la compilazione dell'app (solo con -ParmorWear)",
+            "ja": "アプリのビルド（-ParmorWear 指定時のみ）",
+            "zh": "应用的构建（仅在使用 -ParmorWear 时）",
+            "pt": "a compilação da app (só com -ParmorWear)"
+          }
+        }
+      ]
+    },
+    {
       "name": "tests/",
       "span": 1,
       "tree": {

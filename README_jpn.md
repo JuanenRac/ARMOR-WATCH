@@ -148,6 +148,9 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol（メッセージとその検査）と AlertInbox（画面上のアラート）
 │   └── test/                               契約と同じ例と受信箱のルール
+├── wear/
+│   ├── src/                                画面、Data Layer サービス、ランタイム
+│   └── build.gradle.kts                    アプリのビルド（-ParmorWear 指定時のみ）
 ├── tests/                                  Python で検査した契約
 ├── docs/                                   契約とプロトコル
 ├── tools/                                  検査と契約

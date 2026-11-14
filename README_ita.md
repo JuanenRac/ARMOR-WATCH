@@ -148,6 +148,9 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol (i messaggi e i loro controlli) e AlertInbox (gli avvisi sullo schermo)
 │   └── test/                               gli stessi esempi del contratto e le regole della casella
+├── wear/
+│   ├── src/                                lo schermo, il servizio Data Layer e il runtime
+│   └── build.gradle.kts                    la compilazione dell'app (solo con -ParmorWear)
 ├── tests/                                  il contratto verificato in Python
 ├── docs/                                   il contratto e il protocollo
 ├── tools/                                  controlli e contratto

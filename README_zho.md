@@ -148,6 +148,9 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol（消息及其检查）和 AlertInbox（屏幕上的警报）
 │   └── test/                               与契约相同的示例以及收件箱的规则
+├── wear/
+│   ├── src/                                屏幕、Data Layer 服务和运行时
+│   └── build.gradle.kts                    应用的构建（仅在使用 -ParmorWear 时）
 ├── tests/                                  用 Python 检查的契约
 ├── docs/                                   契约与协议
 ├── tools/                                  检查与契约

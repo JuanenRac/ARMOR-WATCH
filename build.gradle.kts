@@ -4,7 +4,7 @@
 // GPL-3.0-or-later - see LICENSE
 // =============================================================================
 // The Kotlin core of the watch client: the messages between the phone and the watch and the inbox of alerts. It has no Android in it, so its
-// tests run on any computer with a JDK. The Wear OS screen and the Data Layer service that use it are not part of this build yet.
+// tests run on any computer with a JDK. The Wear OS app that uses it (wear/) is part of the build only with -ParmorWear, because it needs the Android SDK.
 plugins {
     kotlin("jvm") version "2.4.21"
     // only put on the class path here; the Wear OS app (wear/) applies them when -ParmorWear is given
