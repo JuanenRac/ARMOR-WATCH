@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A.R.M.O.R.</string>
+    <string name="alerts_off">手机上已关闭警报</string>
+    <string name="no_alerts">没有警报</string>
+    <string name="confirm">确认</string>
+    <string name="confirmed">已确认</string>
+    <string name="phone_out_of_reach">手机不在范围内</string>
+</resources>
