@@ -11,18 +11,12 @@ name: Apple Watch app build check
 
 on:
   workflow_dispatch:
-    inputs:
-      ref:
-        description: "Branch, tag or commit of this repository"
-        type: string
-        required: true
-        default: main
 
 permissions:
   contents: read
 
 concurrency:
-  group: watchos-build-${{ inputs.ref }}
+  group: watchos-build-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -34,7 +28,8 @@ jobs:
       - name: Check out the code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ inputs.ref }}
+          # the commit this run was started from (start the run from the branch or tag to build)
+          ref: ${{ github.sha }}
           persist-credentials: false
       - name: Run the tests of the core
         working-directory: watchos
@@ -48,7 +43,8 @@ jobs:
       - name: Check out the code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ inputs.ref }}
+          # the commit this run was started from (start the run from the branch or tag to build)
+          ref: ${{ github.sha }}
           persist-credentials: false
       - name: Generate the project and build
         working-directory: watchos
