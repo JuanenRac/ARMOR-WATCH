@@ -27,7 +27,7 @@
 
 ---
 
-**正直さのチェック - 今日動いているもの:** メッセージ契約、Kotlin コア、ウォッチのセッションはコンピューター上でテストされ、Wear OS アプリと Android アプリの送信側は CI でビルドされてテストに合格しています。**実機のウォッチやエミュレーターではまだ何も動かしていません。iPhone には対応するものがありません（Wear OS ウォッチとはペアリングできません）。**
+**正直さのチェック - 今日動いているもの:** メッセージ契約、Kotlin と Swift のコア、ウォッチのセッションはコンピューター上でテストされ、Wear OS アプリ、Apple Watch アプリ、Android と iPhone アプリの送信側は CI でビルドされてテストに合格しています。**実機のウォッチ、エミュレーター、シミュレーターではまだ何も動かしていません。Apple Watch アプリはまだ iPhone アプリの中に入っていません。**
 
 ---
 
@@ -38,10 +38,10 @@
 | バージョン | `0.0.1` |
 | 成熟度 | 足場段階 |
 | 役割 | A.R.M.O.R. の最小ウォッチクライアント（ファミリー：Clients、親：ARMOR-ANDROID-CONTROL） |
-| スタック | Kotlin（JVM コアと Compose の Wear OS アプリ、Gradle）。検査は Python 3.11+ |
+| スタック | Kotlin（JVM コアと Compose の Wear OS アプリ、Gradle）、Swift（コアと SwiftUI の Apple Watch アプリ）。検査は Python 3.11+ |
 | テスト | Python に 10 件（`python -m unittest discover -s tests`）と Kotlin テスト（`./gradlew test`） |
 | メッセージ | リレーのスイッチ、アラート、アラートの解除、返信の確認 |
-| 動作環境 | JDK 21 のある任意のコンピューター（コア）、スマートフォンとペアリングした Wear OS 3+ ウォッチ（アプリは CI でビルド済み、実行は未） |
+| 動作環境 | JDK 21 のある任意のコンピューター（Kotlin コア）または Mac（Swift コア）、スマートフォンとペアリングした Wear OS 3+ ウォッチまたは Apple Watch（アプリは CI でビルド済み、実行は未） |
 | 実機での動作 | まだなし：ウォッチでもエミュレーターでも実行されていません |
 | ライセンス | GPL-3.0-or-later |
 
@@ -55,9 +55,9 @@
 
 | 領域 | 状態 | ここでの意味 |
 |---|---|---|
-| ソフトウェア | 🟡 | Kotlin コアはすべてのメッセージを読み取って検査し、アラートをメモリ上に保持します。Wear OS アプリ（画面と Data Layer サービス）と Android アプリの送信側は実装済みです。 |
+| ソフトウェア | 🟡 | Kotlin と Swift のコアはすべてのメッセージを読み取って検査し、アラートをメモリ上に保持します。Wear OS アプリ、Apple Watch アプリ、Android と iPhone アプリの送信側は実装済みです。 |
 | テスト | 🟡 | Python テスト 10 件と Kotlin テストが、契約の同じ受理例・拒否例を実行します。Kotlin テストは CI で動きます。 |
-| ハードウェア | 🔴 | ウォッチでもエミュレーターでも実行されていません。アプリと Data Layer は CI でのビルドと単体テストのみです。 |
+| ハードウェア | 🔴 | ウォッチ、エミュレーター、シミュレーターのいずれでも実行されていません。アプリは CI でのビルドと単体テストのみです。 |
 | ドキュメント | 🟡 | 8 言語、プロトコルの説明、契約が書かれ、最新です。 |
 
 ## 🎯 概要
@@ -148,12 +148,8 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol（メッセージとその検査）と AlertInbox（画面上のアラート）
 │   └── test/                               契約と同じ例と受信箱のルール
-├── wear/
-│   ├── src/                                画面、Data Layer サービス、ランタイム
-│   └── build.gradle.kts                    アプリのビルド（-ParmorWear 指定時のみ）
-├── watchos/
-│   ├── Sources/                            Swift コア：メッセージ、受信箱、セッション
-│   └── App/                                画面と WatchConnectivity
+├── wear/                               Wear OS アプリ：画面、Data Layer サービス、ランタイム
+├── watchos/                            Apple Watch アプリ：Swift コア、画面、WatchConnectivity
 ├── tests/                                  Python で検査した契約
 ├── docs/                                   契約とプロトコル
 ├── tools/                                  検査と契約
@@ -175,13 +171,13 @@ ARMOR-WATCH/
 
 **現時点の既知の制限**
 
-* Wear OS アプリ（`wear/`、`-ParmorWear` でビルド）と ARMOR-ANDROID-CONTROL の送信側（既定ではオフ）は CI でビルドされ単体テストに合格していますが、実機のウォッチやエミュレーターでは何も動かしていません。
-* iPhone は Wear OS ウォッチとペアリングできないため、ARMOR-IOS-CONTROL には対応するものがありません（Apple Watch なら別のアプリになります）。
-* 契約はここで管理されます。Android アプリは同じルールを持ち、同じ例を実行します。
+* Wear OS アプリ（`wear/`、`-ParmorWear` でビルド）、Apple Watch アプリ（`watchos/`、Mac でのみビルド）、ARMOR-ANDROID-CONTROL と ARMOR-IOS-CONTROL の送信側（既定ではオフ）は CI でビルドされ単体テストに合格していますが、実機のウォッチ、エミュレーター、シミュレーターでは何も動かしていません。
+* Apple Watch アプリはまだ iPhone アプリの中に入っていないため、両者のペアリングは未確認です。iPhone は Wear OS ウォッチと、Android スマートフォンは Apple Watch とペアリングできません。
+* 契約はここで管理されます。Kotlin コア、Swift コア、スマートフォンアプリは同じ例を実行します。
 
 **次のステップ**
 
-* 実機のウォッチで確認する：ペアリングし、オプションをオンにし、テストアラームを発生させ、ウォッチで見て、タップで確認し、ARMOR-SERVER で確認済みになるのを見る。その後オプションをオフにして通知が消えるのを見る。
+* 各種類の実機ウォッチで確認する：ペアリングし、オプションをオンにし、テストアラームを発生させ、ウォッチで見て、タップで確認し、ARMOR-SERVER で確認済みになるのを見る。その後オプションをオフにして通知が消えるのを見る。
 
 ## 🌍 言語
 

@@ -2,7 +2,7 @@
   "repo": "ARMOR-WATCH",
   "ecosystem": "armor",
   "tagline": "A minimal watch for A.R.M.O.R.: it shows the alarms the phone sends and confirms one back; it keeps nothing and holds no session.",
-  "description": "ARMOR-WATCH is the minimal client on the wrist. The phone (ARMOR-ANDROID-CONTROL or ARMOR-IOS-CONTROL) sends a short alert or notice only when the option of the watch is on; the watch shows it and the person confirms an alarm with a tap, which sends one identifier back for the phone to check and carry out with its own session. The Kotlin core (messages, inbox and the session of the watch end) is tested on a computer; the Wear OS app (screen and Data Layer service) is compiled and unit-tested in CI and the sender is in the Android app, but nothing has run on a real watch.",
+  "description": "ARMOR-WATCH is the minimal client on the wrist. The phone (ARMOR-ANDROID-CONTROL or ARMOR-IOS-CONTROL) sends a short alert or notice only when the option of the watch is on; the watch shows it and the person confirms an alarm with a tap, which sends one identifier back for the phone to check and carry out with its own session. The Kotlin core (messages, inbox and the session of the watch end) is tested on a computer; the Wear OS app (screen and Data Layer service) and the Apple Watch app (Swift core, screen and WatchConnectivity) are built and unit-tested in CI and the senders are in the Android and iPhone apps, but nothing has run on a real watch.",
   "columns": [
     "WHO USES IT",
     "THIS REPOSITORY",
