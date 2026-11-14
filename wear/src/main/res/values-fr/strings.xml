@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A.R.M.O.R.</string>
+    <string name="alerts_off">Les alertes sont désactivées sur le téléphone</string>
+    <string name="no_alerts">Aucune alerte</string>
+    <string name="confirm">Confirmer</string>
+    <string name="confirmed">Confirmé</string>
+    <string name="phone_out_of_reach">Téléphone hors de portée</string>
+</resources>

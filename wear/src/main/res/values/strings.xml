@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A.R.M.O.R.</string>
+    <string name="alerts_off">Alerts are off on the phone</string>
+    <string name="no_alerts">No alerts</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirmed">Confirmed</string>
+    <string name="phone_out_of_reach">Phone out of reach</string>
+</resources>

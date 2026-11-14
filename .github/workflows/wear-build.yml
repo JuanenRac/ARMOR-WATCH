@@ -1,0 +1,59 @@
+# =============================================================================
+# A.R.M.O.R. - Build check of the Wear OS app
+# Copyright (C) 2026 JuanenRac (Electro Hobby 3D)
+# GPL-3.0-or-later - see LICENSE
+# =============================================================================
+# Started by hand only (workflow_dispatch). It builds the Wear OS app of wear/ (Compose for Wear OS, the service of the Data Layer) with the Android SDK of the runner, runs its unit
+# tests and those of the Kotlin core, and keeps the debug APK for a week. It publishes nothing and signs nothing: the app has never run on a watch.
+
+name: Wear OS app build check
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch, tag or commit of this repository"
+        type: string
+        required: true
+        default: main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wear-build-${{ inputs.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and test the Wear OS app
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref }}
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@77dd5b2ce225ea11469928ac317850245a74ae78 # v6.2.0
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+
+      - name: Build and test
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x gradlew
+          ./gradlew --no-daemon -ParmorWear test :wear:testDebugUnitTest :wear:assembleDebug
+
+      - name: Keep the debug APK for a week
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: wear-debug-apk
+          path: wear/build/outputs/apk/debug/*.apk
+          retention-days: 7
+          if-no-files-found: error

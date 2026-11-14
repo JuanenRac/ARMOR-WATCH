@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A.R.M.O.R.</string>
+    <string name="alerts_off">スマートフォンでアラートがオフになっています</string>
+    <string name="no_alerts">アラートはありません</string>
+    <string name="confirm">確認</string>
+    <string name="confirmed">確認済み</string>
+    <string name="phone_out_of_reach">スマートフォンが圏外です</string>
+</resources>
