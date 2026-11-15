@@ -24,8 +24,8 @@ targets:
       path: Generated/Info.plist
       properties:
         CFBundleDisplayName: A.R.M.O.R.
-        CFBundleShortVersionString: "0.0.1"
-        CFBundleVersion: "1"
+        CFBundleShortVersionString: "0.0.2"
+        CFBundleVersion: "2"
         CFBundleDevelopmentRegion: en
         CFBundleLocalizations: [en, es, de, fr, it, ja, zh-Hans, pt-PT]
         # a watch app that needs the iPhone of the person: it has no login and no network of its own
@@ -34,7 +34,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: es.electrohobby3d.armor.ios.watchkitapp
-        MARKETING_VERSION: "0.0.1"
-        CURRENT_PROJECT_VERSION: "1"
+        MARKETING_VERSION: "0.0.2"
+        CURRENT_PROJECT_VERSION: "2"
         SWIFT_VERSION: "5.9"
         CODE_SIGNING_ALLOWED: NO

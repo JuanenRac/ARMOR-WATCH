@@ -21,7 +21,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 oder neuer">
   <img src="https://img.shields.io/badge/Wear OS-Kotlin-7f52ff.svg" alt="Wear OS">
   <img src="https://img.shields.io/badge/Tests-10%20passing-2ea44f.svg" alt="Tests">
-  <img src="https://img.shields.io/badge/Version-0.0.1-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Reifegrad">
 </p>
 
@@ -35,7 +35,7 @@
 
 | | |
 |---|---|
-| Version | `0.0.1` |
+| Version | `0.0.2` |
 | Reifegrad | Gerüst |
 | Rolle | Der minimale Uhren-Client von A.R.M.O.R. (Familie: Clients, Eltern: ARMOR-ANDROID-CONTROL) |
 | Stack | Kotlin (JVM-Kern und die Wear-OS-App mit Compose, Gradle), Swift (Kern und die Apple-Watch-App mit SwiftUI); Python 3.11+ für die Prüfungen |
@@ -123,6 +123,9 @@ python -I tools/armor_ci_validate.py
 | `test_watch_contract.py` | 10 | Jedes Beispiel des Vertrags, die Grenzen, die Kotlin-Konstanten und die Protokollnotizen |
 | `WatchProtocolTest.kt` | 6 | Dieselben Beispiele gegen den Kotlin-Parser, die Grenzen und die Bestätigung |
 | `AlertInboxTest.kt` | 10 | Standardmäßig aus, Reihenfolge, Ersetzen, Ablauf, Löschen, eine Bestätigung, das Limit von acht |
+| `WatchSessionTest.kt` | 11 | Das Gespräch der Uhr mit einem Telefon, das nur im Speicher existiert |
+| `WatchRuntimeTest.kt` | 5 | Die gemeinsame Sitzung der Wear-OS-App, der Pfad der Alarme und die Schaltfläche |
+| `ArmorWatchCoreTests.swift` | 18 | Der Swift-Kern der Apple-Watch-App gegen dieselben Beispiele des Vertrags |
 
 Die Kotlin-Tests laufen in der CI; kein Test lief auf einer Uhr oder einem Emulator.
 
