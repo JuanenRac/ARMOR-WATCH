@@ -13,7 +13,7 @@ plugins {
 }
 
 group = "armor.watch"
-version = "0.0.1"
+version = "0.0.2"
 
 dependencies {
     // Android has org.json built in, so the Wear OS app must not bring a second copy: the core only needs it to compile, and its tests bring the real library.

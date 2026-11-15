@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "ecosystem": "A.R.M.O.R.",
   "name": "ARMOR-WATCH",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "role": "Minimal watch client: alarm notices and alarm confirmation",
   "stack": "Kotlin (JVM core) / Wear OS",
   "technologies": [
@@ -16,7 +16,7 @@
   "evidence": "host-test",
   "family": "Clients",
   "parent": "ARMOR-ANDROID-CONTROL",
-  "native_version": "0.0.1",
+  "native_version": "0.0.2",
   "build": "python tools/watch_contract.py && python -m unittest discover -s tests && ./gradlew test",
   "notes": "The watch shows the alarms and notices the phone chooses to send and lets the person confirm an alarm with one tap; it keeps nothing on the watch and holds no session of ARMOR-SERVER. Today the repository holds the message contract (docs/watch_alert_contract.json, checked in Python), the Kotlin core that reads and checks every message, keeps the alerts in memory and runs the conversation of the watch end against a simulated phone (tested on a computer with Gradle), the Wear OS app (wear/: a Compose for Wear OS screen and the Data Layer service, built only with -ParmorWear, compiled and unit-tested in GitHub Actions) and the protocol notes. The Apple Watch app (watchos/: a Swift core with the same contract and a SwiftUI app with WatchConnectivity, built only on a Mac, tested and built for the simulator in GitHub Actions) follows the same rules and is also a target of the Xcode project of ARMOR-IOS-CONTROL, embedded in the iPhone app and built there for the simulator in GitHub Actions. The sending side is in ARMOR-ANDROID-CONTROL for Wear OS and in ARMOR-IOS-CONTROL for the Apple Watch (both off by default); an iPhone does not pair with a Wear OS watch and an Android phone does not pair with an Apple Watch. Nothing has run on a real watch, an emulator or a simulator."
 }

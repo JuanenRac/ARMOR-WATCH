@@ -21,7 +21,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Wear OS-Kotlin-7f52ff.svg" alt="Wear OS">
   <img src="https://img.shields.io/badge/Tests-10%20passing-2ea44f.svg" alt="Tests">
-  <img src="https://img.shields.io/badge/Version-0.0.1-0f6cbd.svg" alt="Version">
+  <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
 
@@ -35,7 +35,7 @@
 
 | | |
 |---|---|
-| バージョン | `0.0.1` |
+| バージョン | `0.0.2` |
 | 成熟度 | 足場段階 |
 | 役割 | A.R.M.O.R. の最小ウォッチクライアント（ファミリー：Clients、親：ARMOR-ANDROID-CONTROL） |
 | スタック | Kotlin（JVM コアと Compose の Wear OS アプリ、Gradle）、Swift（コアと SwiftUI の Apple Watch アプリ）。検査は Python 3.11+ |
@@ -123,6 +123,9 @@ python -I tools/armor_ci_validate.py
 | `test_watch_contract.py` | 10 | 契約のすべての例、上限、Kotlin の定数、プロトコルの説明 |
 | `WatchProtocolTest.kt` | 6 | Kotlin パーサーに対する同じ例、上限、確認 |
 | `AlertInboxTest.kt` | 10 | 既定でオフ、順序、置換、期限切れ、解除、確認は 1 回、上限 8 件 |
+| `WatchSessionTest.kt` | 11 | メモリ上にしかない電話を相手にした腕時計側の会話 |
+| `WatchRuntimeTest.kt` | 5 | Wear OS アプリの共有セッション、アラートの経路、ボタン |
+| `ArmorWatchCoreTests.swift` | 18 | Apple Watch アプリの Swift コアを契約の同じ例で検証 |
 
 Kotlin テストは CI で動きます。ウォッチでもエミュレーターでもテストは実行されていません。
 
