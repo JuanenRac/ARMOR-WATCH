@@ -239,7 +239,7 @@ class Pair:
 
     def every_message_is_in_the_contract(self) -> bool:
         """Everything that crossed the link, in both directions, is a message of the contract."""
-        for path, text in self.to_watch.arrived + self.to_phone.arrived + self.to_watch.lost + self.to_phone.lost:
+        for _path, text in self.to_watch.arrived + self.to_phone.arrived + self.to_watch.lost + self.to_phone.lost:
             try:
                 if not wc.validate(json.loads(text), CONTRACT):
                     return False
