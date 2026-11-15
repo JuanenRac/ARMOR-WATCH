@@ -217,6 +217,9 @@ class Phone:
 class Pair:
     """A phone, a watch, the link between them and a server on a clock that only the caller moves."""
 
+    watch: Watch
+    phone: Phone
+
     def __init__(self, start: int = 1000):
         self.clock_value = start
         clock = lambda: self.clock_value  # noqa: E731
