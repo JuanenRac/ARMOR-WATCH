@@ -20,7 +20,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 oder neuer">
   <img src="https://img.shields.io/badge/Wear OS-Kotlin-7f52ff.svg" alt="Wear OS">
-  <img src="https://img.shields.io/badge/Tests-10%20passing-2ea44f.svg" alt="Tests">
+  <img src="https://img.shields.io/badge/Tests-13%20passing-2ea44f.svg" alt="Tests">
   <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Reifegrad">
 </p>
@@ -39,7 +39,7 @@
 | Reifegrad | Gerüst |
 | Rolle | Der minimale Uhren-Client von A.R.M.O.R. (Familie: Clients, Eltern: ARMOR-ANDROID-CONTROL) |
 | Stack | Kotlin (JVM-Kern und die Wear-OS-App mit Compose, Gradle), Swift (Kern und die Apple-Watch-App mit SwiftUI); Python 3.11+ für die Prüfungen |
-| Tests | 10 in Python (`python -m unittest discover -s tests`) und die Kotlin-Tests (`./gradlew test`) |
+| Tests | 13 in Python (`python -m unittest discover -s tests`) und die Kotlin-Tests (`./gradlew test`) |
 | Nachrichten | Der Schalter des Relays, ein Alarm, das Löschen eines Alarms und die Bestätigung zurück |
 | Läuft auf | Jedem Computer mit JDK 21 (Kotlin-Kern) oder einem Mac (Swift-Kern); einer Wear-OS-3+-Uhr oder einer Apple Watch, gekoppelt mit dem Telefon (Apps in CI gebaut, nie ausgeführt) |
 | Auf echter Hardware | Noch nicht: keine Uhr und kein Emulator hat es ausgeführt |
@@ -56,7 +56,7 @@ Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heut
 | Bereich | Stand | Was das hier bedeutet |
 |---|---|---|
 | Software | 🟡 | Die Kotlin- und Swift-Kerne lesen und prüfen jede Nachricht und halten die Alarme im Speicher; die Wear-OS-App, die Apple-Watch-App und die Sender in den Android- und iPhone-Apps sind geschrieben. |
-| Tests | 🟡 | 10 Python-Tests und die Kotlin-Tests führen dieselben angenommenen und abgelehnten Beispiele des Vertrags aus; die Kotlin-Tests laufen in der CI. |
+| Tests | 🟡 | 13 Python-Tests und die Kotlin-Tests führen dieselben angenommenen und abgelehnten Beispiele des Vertrags aus; die Kotlin-Tests laufen in der CI. |
 | Hardware | 🔴 | Keine Uhr, kein Emulator und kein Simulator hat sie ausgeführt; die Apps werden nur in CI gebaut und per Unit-Test geprüft. |
 | Dokumentation | 🟡 | Acht Sprachen, die Protokollnotizen und der Vertrag sind geschrieben und aktuell. |
 
