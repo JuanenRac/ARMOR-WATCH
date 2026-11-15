@@ -27,7 +27,7 @@
 
 ---
 
-**Ehrlichkeitsprüfung - was heute läuft:** Der Nachrichtenvertrag, die Kotlin- und Swift-Kerne und die Uhr-Sitzung werden auf einem Computer getestet, und die Wear-OS-App, die Apple-Watch-App und die Sendeseite der Android- und iPhone-Apps werden in CI gebaut und bestehen ihre Tests; **nichts lief auf einer echten Uhr, einem Emulator oder einem Simulator, und die Apple-Watch-App, im iPhone-Projekt mitgebaut, wurde nie mit einem echten iPhone gekoppelt.**
+**Ehrlichkeitsprüfung - was heute läuft:** Der Nachrichtenvertrag, die Kotlin- und Swift-Kerne und die Uhr-Sitzung werden auf einem Computer getestet, und die Wear-OS-App, die Apple-Watch-App und die Sendeseite der Android- und iPhone-Apps werden in CI gebaut und bestehen ihre Tests; **nichts lief auf einer echten Uhr oder einem Emulator (nur ein simulierter Zwilling von Telefon, Verbindung und Uhr), und die Apple-Watch-App, im iPhone-Projekt mitgebaut, wurde nie mit einem echten iPhone gekoppelt.**
 
 ---
 
@@ -42,7 +42,8 @@
 | Tests | 29 in Python (`python -m unittest discover -s tests`) und die Kotlin-Tests (`./gradlew test`) |
 | Nachrichten | Der Schalter des Relays, ein Alarm, das Löschen eines Alarms und die Bestätigung zurück |
 | Läuft auf | Jedem Computer mit JDK 21 (Kotlin-Kern) oder einem Mac (Swift-Kern); einer Wear-OS-3+-Uhr oder einer Apple Watch, gekoppelt mit dem Telefon (Apps in CI gebaut, nie ausgeführt) |
-| Auf echter Hardware | Noch nicht: keine Uhr und kein Emulator hat es ausgeführt |
+| Auf echter Hardware | Noch nicht: nur ein simulierter Zwilling hat es ausgeführt; die Prüfung auf einer echten Uhr steht aus |
+| Simulation und APK | Der simulierte Zwilling (`tools/watch_simulation.py`) verbindet Telefon, die Verbindung mit Störungen und die Uhr im Speicher; die Wear-OS-App (`wear/`) und die Apple-Watch-App (`watchos/`) liegen in diesem einen Repository, und das Release-APK der Wear-OS-App wird außerhalb von GitHub als `ARMOR-WATCH-release.apk` signiert |
 | Lizenz | GPL-3.0-or-later |
 
 **Springe zu:** [Überblick](#-überblick) · [Architektur](#-architektur) · [Sicherheit](#-sicherheit-und-schutz) · [Konfiguration](#-konfiguration) · [Schnellstart](#-schnellstart) · [Tests](#-tests) · [Probleme](#-fehlerbehebung) · [Struktur](#-struktur-des-repositorys) · [Verwandte](#-verwandte-projekte)
@@ -57,7 +58,7 @@ Jede Zeile ist ein Teil dieses Repositorys, und die Ampel sagt, wie weit er heut
 |---|---|---|
 | Software | 🟡 | Die Kotlin- und Swift-Kerne lesen und prüfen jede Nachricht und halten die Alarme im Speicher; die Wear-OS-App, die Apple-Watch-App und die Sender in den Android- und iPhone-Apps sind geschrieben. |
 | Tests | 🟡 | 29 Python-Tests und die Kotlin-Tests führen dieselben angenommenen und abgelehnten Beispiele des Vertrags aus; die Kotlin-Tests laufen in der CI. |
-| Hardware | 🔴 | Keine Uhr, kein Emulator und kein Simulator hat sie ausgeführt; die Apps werden nur in CI gebaut und per Unit-Test geprüft. |
+| Hardware | 🟠 | Keine echte Uhr und kein Emulator hat sie ausgeführt; ein simulierter Zwilling (`tools/watch_simulation.py`) führt das ganze Gespräch im Speicher aus (Nachweis: Simulator), die Prüfung auf einer echten Uhr steht noch aus. |
 | Dokumentation | 🟡 | Acht Sprachen, die Protokollnotizen und der Vertrag sind geschrieben und aktuell. |
 
 ## 🎯 Überblick
@@ -120,14 +121,16 @@ python -I tools/armor_ci_validate.py
 
 | Testdatei | Tests | Was sie abdeckt |
 |---|---|---|
-| `test_watch_contract.py` | 10 | Jedes Beispiel des Vertrags, die Grenzen, die Kotlin-Konstanten und die Protokollnotizen |
+| `test_watch_contract.py` | 13 | Jedes Beispiel des Vertrags, die Grenzen, die Kotlin-Konstanten und die Protokollnotizen |
+| `test_watch_simulation.py` | 16 | Das simulierte Gespräch von Telefon und Uhr mit Störungen auf der Verbindung, mit denselben Szenarien wie in Kotlin |
 | `WatchProtocolTest.kt` | 6 | Dieselben Beispiele gegen den Kotlin-Parser, die Grenzen und die Bestätigung |
 | `AlertInboxTest.kt` | 10 | Standardmäßig aus, Reihenfolge, Ersetzen, Ablauf, Löschen, eine Bestätigung, das Limit von acht |
 | `WatchSessionTest.kt` | 11 | Das Gespräch der Uhr mit einem Telefon, das nur im Speicher existiert |
+| `SimulatedPairTest.kt` | 14 | Simuliertes Telefon, simulierte Verbindung und Uhr mit absichtlichen Störungen, auf einer vom Test bewegten Uhr |
 | `WatchRuntimeTest.kt` | 5 | Die gemeinsame Sitzung der Wear-OS-App, der Pfad der Alarme und die Schaltfläche |
 | `ArmorWatchCoreTests.swift` | 18 | Der Swift-Kern der Apple-Watch-App gegen dieselben Beispiele des Vertrags |
 
-Die Kotlin-Tests laufen in der CI; kein Test lief auf einer Uhr oder einem Emulator.
+Die Kotlin-Tests laufen in der CI; kein Test lief auf einer Uhr oder einem Emulator. Der simulierte Zwilling (`tools/watch_simulation.py`) führt das ganze Gespräch im Speicher aus, mit Störungen auf der Verbindung.
 
 ## 🩺 Fehlerbehebung
 

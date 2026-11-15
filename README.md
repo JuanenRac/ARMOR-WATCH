@@ -27,7 +27,7 @@
 
 ---
 
-**Honesty check - what runs today:** The message contract, the Kotlin and Swift cores and the watch session are tested on a computer, and the Wear OS app, the Apple Watch app and the sending side of the Android and iPhone apps are built and pass their tests in CI; **nothing has run on a real watch, an emulator or a simulator, and the Apple Watch app, built inside the iPhone project, has never been paired with a real iPhone.**
+**Honesty check - what runs today:** The message contract, the Kotlin and Swift cores and the watch session are tested on a computer, and the Wear OS app, the Apple Watch app and the sending side of the Android and iPhone apps are built and pass their tests in CI; **nothing has run on a real watch or an emulator (only a simulated twin of the phone, the link and the watch has), and the Apple Watch app, built inside the iPhone project, has never been paired with a real iPhone.**
 
 ---
 
@@ -42,7 +42,8 @@
 | Tests | 29 in Python (`python -m unittest discover -s tests`) and the Kotlin tests (`./gradlew test`) |
 | Messages | The switch of the relay, an alert, the clear of an alert and the confirmation back |
 | Runs on | Any computer with a JDK 21 (Kotlin core) or a Mac (Swift core); a Wear OS 3+ watch or an Apple Watch paired with the phone (apps built in CI, never run) |
-| On real hardware | None yet: no watch or emulator has run it |
+| On real hardware | None yet: only a simulated twin has run it; the test on a real watch is pending |
+| Simulation and APK | The simulated twin (`tools/watch_simulation.py`) wires the phone, the link with faults and the watch in memory; the Wear OS app (`wear/`) and the Apple Watch app (`watchos/`) live in this one repository, and the release APK of the Wear OS app is signed outside GitHub as `ARMOR-WATCH-release.apk` |
 | License | GPL-3.0-or-later |
 
 **Jump to:** [Overview](#-overview) · [Architecture](#-architecture) · [Security](#-security--safety) · [Configuration](#-configuration) · [Quick start](#-quick-start) · [Testing](#-testing) · [Troubleshooting](#-troubleshooting) · [Structure](#-repository-structure) · [Related](#-related-projects)
@@ -57,7 +58,7 @@ Each line is one part of this repository and the light says how far it is today.
 |---|---|---|
 | Software | 🟡 | The Kotlin and Swift cores read and check every message and keep the alerts in memory; the Wear OS app, the Apple Watch app and the senders in the Android and iPhone apps are written. |
 | Tests | 🟡 | 29 Python tests and the Kotlin tests run the same accepted and rejected examples of the contract; the Kotlin tests run in CI. |
-| Hardware | 🔴 | No watch, emulator or simulator has run them; the apps are only built and unit-tested in CI. |
+| Hardware | 🟠 | No real watch or emulator has run them; a simulated twin (`tools/watch_simulation.py`) runs the whole conversation in memory (evidence: simulator), and the test on a real watch is still pending. |
 | Documentation | 🟡 | Eight languages, the protocol notes and the contract are written and up to date. |
 
 ## 🎯 Overview
@@ -120,14 +121,16 @@ python -I tools/armor_ci_validate.py
 
 | Test file | Tests | What it covers |
 |---|---|---|
-| `test_watch_contract.py` | 10 | Every example of the contract, the limits, the Kotlin constants and the protocol notes |
+| `test_watch_contract.py` | 13 | Every example of the contract, the limits, the Kotlin constants and the protocol notes |
+| `test_watch_simulation.py` | 16 | The simulated conversation of the phone and the watch with faults on the link, with the same scenarios as the Kotlin ones |
 | `WatchProtocolTest.kt` | 6 | The same examples against the Kotlin parser, the limits and the acknowledgement |
 | `AlertInboxTest.kt` | 10 | Off by default, order, replacement, expiry, clear, one confirmation, the limit of eight |
 | `WatchSessionTest.kt` | 11 | The conversation of the watch against a phone that exists only in memory |
+| `SimulatedPairTest.kt` | 14 | The simulated phone, link and watch with faults on purpose, on a clock the test moves |
 | `WatchRuntimeTest.kt` | 5 | The shared session of the Wear OS app, the path of the alerts and the button |
 | `ArmorWatchCoreTests.swift` | 18 | The Swift core of the Apple Watch app against the same examples of the contract |
 
-The Kotlin tests run in CI; no test has run on a watch or an emulator.
+The Kotlin tests run in CI; no test has run on a watch or an emulator. The simulated twin (`tools/watch_simulation.py`) runs the whole conversation in memory, with faults on the link.
 
 ## 🩺 Troubleshooting
 
