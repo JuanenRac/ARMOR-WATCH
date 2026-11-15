@@ -34,6 +34,19 @@ Every message also carries `protocolVersion` (1). The phone writes `title` and `
 
 The conversation of the watch end is written without Android and tried against a phone that exists only in memory (`WatchSession`, `WatchScreen`, `SimulatedPhone`; evidence: simulator). The Wear OS app (`wear/`: a Compose for Wear OS screen that draws `WatchScreen`, and the Data Layer service, paths `/armor/alert` to the watch and `/armor/alert/ack` to the phone, that calls `WatchSession.onPhoneMessage`) is written, compiles and passes its unit tests in GitHub Actions (`wear-build.yml`), but it has never run on a watch. The sending side is in the phone apps and off by default: ARMOR-ANDROID-CONTROL for Wear OS and ARMOR-IOS-CONTROL for the Apple Watch.
 
+## Trying the whole conversation without a watch
+
+`src/main/kotlin/armor/watch/Simulation.kt` (and its Python twin, `tools/watch_simulation.py`) put a phone, a watch, the link between them and a server in memory (evidence: simulator):
+
+* `SimulatedChannel` stands for the Data Layer and for WatchConnectivity, with faults on purpose: out of range (the sender is told), a message lost on the way (the sender is not told), a duplicate, and a burst held up and let go in the wrong order.
+* `SimulatedPhoneRelay` is the sending side of the two phone apps: the switch, the alerts (severity, texts cut to the limits, time to live), the clear, and the rule that a confirmation is acted on only for an alert the phone sent, once, before it expires, and only while the option is on.
+* `SimulatedAlarmServer` is the part of ARMOR-SERVER that the confirmation reaches: an alarm is acknowledged once, or refused (unknown alarm, server down).
+* `SimulatedPair` wires them on a clock that only the test moves; `restartWatch()` makes a watch that starts again with nothing in memory.
+
+`SimulatedPairTest` (Kotlin, 14 scenarios) and `tests/test_watch_simulation.py` (the same scenarios in Python, with every message that crosses the link checked against the contract) run them; a test makes sure each Kotlin scenario has its Python twin. `python tools/watch_simulation.py` prints `WATCH_SIMULATION=PASS` after one alarm goes from the phone to the watch and back to the server.
+
+Still to be proved on real hardware: the Data Layer and WatchConnectivity themselves (delivery, latency and what a real watch out of range does), the pairing of a real watch with a real phone, the notification of the system, and the screens on a watch or an emulator. The exact test: pair a watch with a phone running the app, switch the option on, raise an alarm on the server, and check that the alert shows, that the tap acknowledges the alarm once, and that walking out of range makes the button wait.
+
 ## Wear OS and Apple Watch: what is the same and what the system changes
 
 * **The same:** the contract (`docs/watch_alert_contract.json`), the four messages, the limits, the rules (off until the phone says otherwise, memory only, one confirmation, the phone acts with its own session) and the words in the eight languages. The Kotlin core (`src/`) and the Swift core (`watchos/Sources/`) run the same examples.
