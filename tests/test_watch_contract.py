@@ -92,5 +92,50 @@ class ProtocolNotes(unittest.TestCase):
         self.assertIn("Off by default", text)
 
 
+class ApkBuildChain(unittest.TestCase):
+    """The APK of the watch leaves GitHub Actions unsigned and is signed on the maintainer's machine (no Gradle needed: the files are read as text)."""
+
+    WORKFLOW = ROOT / ".github" / "workflows" / "apk-build.yml"
+    GRADLE = ROOT / "wear" / "build.gradle.kts"
+
+    def test_the_release_build_type_has_no_signing_in_it(self):
+        whole = self.GRADLE.read_text(encoding="utf-8")
+        text = "\n".join(line for line in whole.splitlines() if not line.strip().startswith("//"))   # the comments may name what is absent
+        self.assertRegex(text, r"buildTypes\s*\{\s*release\s*\{")
+        for word in ("signingConfig", "storeFile", "storePassword", "keyPassword", "keyAlias", "keystore"):
+            self.assertNotIn(word.lower(), text.lower(), word)
+        self.assertIn("includeInApk = false", text)
+
+    def test_the_workflow_is_manual_unsigned_built_twice_and_attested(self):
+        text = self.WORKFLOW.read_text(encoding="utf-8")
+        self.assertRegex(text, r"(?m)^on:\n  workflow_dispatch:")
+        for trigger in ("push:", "pull_request", "schedule:"):
+            self.assertNotIn(f"\n  {trigger}", text)
+        self.assertRegex(text, r"(?s)dry_run:.*?default: true")
+        self.assertRegex(text, r"(?m)^permissions:\n  contents: read\n")
+        self.assertIn("id: [build-1, build-2]", text)
+        self.assertIn("-ParmorWear :wear:assembleRelease", text)
+        self.assertIn("wear/build/outputs/apk/release/wear-release-unsigned.apk", text)
+        self.assertIn("name: apk-watch-${{ needs.plan.outputs.version }}", text)
+        self.assertIn("actions/attest-build-provenance@", text)
+        self.assertIn('"signed": False', text)
+        self.assertIn('"project": "watch"', text)
+        self.assertNotIn("secrets.", text)
+        self.assertNotIn("inputs.ref", text)
+        self.assertEqual(len(re.findall(r"id-token: write", text)), 1)
+        for ref in re.findall(r"(?m)^\s+ref: (.*)$", text):
+            self.assertEqual(ref.strip(), "${{ github.sha }}")
+        for action in re.findall(r"(?m)^\s+uses: (\S+)", text):
+            self.assertRegex(action, r"@[0-9a-f]{40}$", f"{action} is not pinned by commit")
+
+    def test_the_names_of_the_files_are_written_down(self):
+        notes = (ROOT / "docs" / "PROTOCOL.md").read_text(encoding="utf-8")
+        for name in ("ARMOR-WATCH-release.apk", "ARMOR-WATCH-release-unsigned.apk", "apk-watch-", "apk-build.yml"):
+            self.assertIn(name, notes)
+        self.assertIn("ARMOR-WATCH-release-unsigned.apk", self.WORKFLOW.read_text(encoding="utf-8"))
+        version = re.search(r'versionName = "([^"]+)"', self.GRADLE.read_text(encoding="utf-8"))
+        self.assertIsNotNone(version)
+
+
 if __name__ == "__main__":
     unittest.main()

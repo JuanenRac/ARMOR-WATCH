@@ -26,6 +26,12 @@ android {
         targetCompatibility = JavaVersion.VERSION_21
     }
     testOptions { unitTests.isReturnDefaultValues = true }
+    // The release APK leaves the build UNSIGNED and aligned by the workflow apk-build.yml: there is no signingConfig here, on purpose. The signature of the release (apksigner, the key of the
+    // maintainer, the same one as ARMOR-ANDROID-CONTROL) is made on the maintainer's machine and the key never reaches the repository or GitHub Actions. Not shrunk: the app is small and has
+    // never run on a watch, so nothing here is renamed or removed that could not be seen.
+    buildTypes { release { isMinifyEnabled = false } }
+    // Same bytes on every build: no list of dependencies (a signing blob) is written into the APK.
+    dependenciesInfo { includeInApk = false; includeInBundle = false }
 }
 
 // The version lives here and in the manifest every other tool reads; a build stops when they differ.
