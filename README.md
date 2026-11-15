@@ -20,7 +20,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Wear OS-Kotlin-7f52ff.svg" alt="Wear OS">
-  <img src="https://img.shields.io/badge/Tests-13%20passing-2ea44f.svg" alt="Tests">
+  <img src="https://img.shields.io/badge/Tests-29%20passing-2ea44f.svg" alt="Tests">
   <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
@@ -39,7 +39,7 @@
 | Maturity | Scaffolding |
 | Role | The minimal watch client of A.R.M.O.R. (family: Clients, parent: ARMOR-ANDROID-CONTROL) |
 | Stack | Kotlin (JVM core and the Wear OS app with Compose, Gradle), Swift (core and the Apple Watch app with SwiftUI); Python 3.11+ for the checks |
-| Tests | 13 in Python (`python -m unittest discover -s tests`) and the Kotlin tests (`./gradlew test`) |
+| Tests | 29 in Python (`python -m unittest discover -s tests`) and the Kotlin tests (`./gradlew test`) |
 | Messages | The switch of the relay, an alert, the clear of an alert and the confirmation back |
 | Runs on | Any computer with a JDK 21 (Kotlin core) or a Mac (Swift core); a Wear OS 3+ watch or an Apple Watch paired with the phone (apps built in CI, never run) |
 | On real hardware | None yet: no watch or emulator has run it |
@@ -56,7 +56,7 @@ Each line is one part of this repository and the light says how far it is today.
 | Area | State | What it means here |
 |---|---|---|
 | Software | 🟡 | The Kotlin and Swift cores read and check every message and keep the alerts in memory; the Wear OS app, the Apple Watch app and the senders in the Android and iPhone apps are written. |
-| Tests | 🟡 | 13 Python tests and the Kotlin tests run the same accepted and rejected examples of the contract; the Kotlin tests run in CI. |
+| Tests | 🟡 | 29 Python tests and the Kotlin tests run the same accepted and rejected examples of the contract; the Kotlin tests run in CI. |
 | Hardware | 🔴 | No watch, emulator or simulator has run them; the apps are only built and unit-tested in CI. |
 | Documentation | 🟡 | Eight languages, the protocol notes and the contract are written and up to date. |
 
