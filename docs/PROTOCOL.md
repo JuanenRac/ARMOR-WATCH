@@ -30,6 +30,13 @@ Every message also carries `protocolVersion` (1). The phone writes `title` and `
 * Checks the `alert_ack` against the alarm and carries it out with its own session; an identifier it does not know is ignored.
 * Sends `alert_clear` when the alarm is confirmed somewhere else.
 
+## The APK of the Wear OS app: how it is built and signed
+
+* **Built in GitHub Actions, signed on the maintainer's machine** (the same chain as ARMOR-ANDROID-CONTROL). The manual workflow `apk-build.yml` (started by hand from main, `dry_run` on by default) compiles `:wear:assembleRelease` with `-ParmorWear` twice, aligns the APK, compares the two results byte by byte, writes `SHA256SUMS` and `build-manifest.json`, attests their provenance and uploads them as the artifact `apk-watch-<version>`. With `dry_run` off, a separate job also prepares a draft release `v<version>` after the owner approves the `release` environment.
+* **Unsigned on purpose:** the release build type has no signing configuration and the workflow stops if it finds a keystore or a key setting; the file that leaves Actions is `ARMOR-WATCH-release-unsigned.apk`. The signature (apksigner, the release key of the owner, the same key as the phone app) is made on the maintainer's machine, which also checks the attestation and the hashes first; the key never reaches the repository or GitHub Actions.
+* **The name of the signed file is `ARMOR-WATCH-release.apk`**, with its `.sha256`, as an asset of the latest release: this is the exact name that an updater (a tool on the PC, or the phone app) has to ask for. The phone app does not download or install the watch app today (a phone cannot install an app on a watch by itself); the APK is installed on the watch with `adb install` over Wi-Fi or Bluetooth debugging.
+* The version is raised before the build (`versionName` in `wear/build.gradle.kts` and the manifest, with a section in the changelog); the workflow stops when they differ. The app is not shrunk (R8 is off) because it is small and has never run on a watch.
+
 ## Not tested yet
 
 The conversation of the watch end is written without Android and tried against a phone that exists only in memory (`WatchSession`, `WatchScreen`, `SimulatedPhone`; evidence: simulator). The Wear OS app (`wear/`: a Compose for Wear OS screen that draws `WatchScreen`, and the Data Layer service, paths `/armor/alert` to the watch and `/armor/alert/ack` to the phone, that calls `WatchSession.onPhoneMessage`) is written, compiles and passes its unit tests in GitHub Actions (`wear-build.yml`), but it has never run on a watch. The sending side is in the phone apps and off by default: ARMOR-ANDROID-CONTROL for Wear OS and ARMOR-IOS-CONTROL for the Apple Watch.
