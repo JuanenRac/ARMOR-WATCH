@@ -27,7 +27,7 @@
 
 ---
 
-**诚实性检查 - 今天真正能运行的部分：** 消息契约、Kotlin 和 Swift 核心以及手表会话已在电脑上测试，Wear OS 应用、Apple Watch 应用以及 Android 和 iPhone 应用的发送端在 CI 中构建并通过测试；**尚未在真实手表、模拟器或仿真器上运行，构建在 iPhone 工程内的 Apple Watch 应用也从未与真实 iPhone 配对。**
+**诚实性检查 - 今天真正能运行的部分：** 消息契约、Kotlin 和 Swift 核心以及手表会话已在电脑上测试，Wear OS 应用、Apple Watch 应用以及 Android 和 iPhone 应用的发送端在 CI 中构建并通过测试；**尚未在真实手表或模拟器上运行（只有手机、链路和手表的模拟孪生体运行过），构建在 iPhone 工程内的 Apple Watch 应用也从未与真实 iPhone 配对。**
 
 ---
 
@@ -42,7 +42,8 @@
 | 测试 | Python 中 29 个（`python -m unittest discover -s tests`）和 Kotlin 测试（`./gradlew test`） |
 | 消息 | 转发开关、一条警报、警报的清除以及回传的确认 |
 | 运行于 | 任何带 JDK 21 的电脑（Kotlin 核心）或 Mac（Swift 核心）；与手机配对的 Wear OS 3+ 手表或 Apple Watch（应用已在 CI 中构建，尚未运行） |
-| 真实硬件 | 尚无：没有手表或模拟器运行过 |
+| 真实硬件 | 尚无：只有模拟孪生体运行过；真实手表上的测试待进行 |
+| 模拟与 APK | 模拟孪生体（`tools/watch_simulation.py`）在内存中连接手机、带故障的链路和手表；Wear OS 应用（`wear/`）和 Apple Watch 应用（`watchos/`）在同一个仓库中，Wear OS 的发布 APK 在 GitHub 之外签名，命名为 `ARMOR-WATCH-release.apk` |
 | 许可证 | GPL-3.0-or-later |
 
 **跳转到：** [概述](#-概述) · [架构](#-架构) · [安全](#-安全与防护) · [配置](#-配置) · [快速开始](#-快速开始) · [测试](#-测试) · [故障排除](#-故障排除) · [结构](#-仓库结构) · [相关项目](#-相关项目)
@@ -57,7 +58,7 @@
 |---|---|---|
 | 软件 | 🟡 | Kotlin 和 Swift 核心读取并检查每条消息，并把警报保存在内存中；Wear OS 应用、Apple Watch 应用以及 Android 和 iPhone 应用中的发送端已编写。 |
 | 测试 | 🟡 | 29 个 Python 测试和 Kotlin 测试运行契约中相同的被接受和被拒绝示例；Kotlin 测试在 CI 中运行。 |
-| 硬件 | 🔴 | 没有手表、模拟器或仿真器运行过它们；应用只在 CI 中构建并做单元测试。 |
+| 硬件 | 🟠 | 没有真实手表或模拟器运行过它们；模拟孪生体（`tools/watch_simulation.py`）在内存中运行整个对话（证据：模拟器），真实手表上的测试仍待进行。 |
 | 文档 | 🟡 | 八种语言、协议说明和契约均已编写并保持最新。 |
 
 ## 🎯 概述
@@ -120,14 +121,16 @@ python -I tools/armor_ci_validate.py
 
 | 测试文件 | 测试数 | 覆盖内容 |
 |---|---|---|
-| `test_watch_contract.py` | 10 | 契约的每个示例、限制、Kotlin 常量和协议说明 |
+| `test_watch_contract.py` | 13 | 契约的每个示例、限制、Kotlin 常量和协议说明 |
+| `test_watch_simulation.py` | 16 | 手机与手表之间带链路故障的模拟对话（与 Kotlin 相同的场景） |
 | `WatchProtocolTest.kt` | 6 | 针对 Kotlin 解析器的相同示例、限制和确认 |
 | `AlertInboxTest.kt` | 10 | 默认关闭、顺序、替换、过期、清除、仅一次确认、八条上限 |
 | `WatchSessionTest.kt` | 11 | 手表一端与仅存在于内存中的手机之间的对话 |
+| `SimulatedPairTest.kt` | 14 | 带有意设置故障的模拟手机、链路和手表，运行在由测试推进的时钟上 |
 | `WatchRuntimeTest.kt` | 5 | Wear OS 应用的共享会话、警报路径和按钮 |
 | `ArmorWatchCoreTests.swift` | 18 | Apple Watch 应用的 Swift 核心,对照契约的同一批示例 |
 
-Kotlin 测试在 CI 中运行；没有任何测试在手表或模拟器上运行过。
+Kotlin 测试在 CI 中运行；没有任何测试在手表或模拟器上运行过。模拟孪生体（`tools/watch_simulation.py`）在内存中运行整个对话，并在链路上注入故障。
 
 ## 🩺 故障排除
 
