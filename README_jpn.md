@@ -20,7 +20,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Wear OS-Kotlin-7f52ff.svg" alt="Wear OS">
-  <img src="https://img.shields.io/badge/Tests-10%20passing-2ea44f.svg" alt="Tests">
+  <img src="https://img.shields.io/badge/Tests-13%20passing-2ea44f.svg" alt="Tests">
   <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
@@ -39,7 +39,7 @@
 | 成熟度 | 足場段階 |
 | 役割 | A.R.M.O.R. の最小ウォッチクライアント（ファミリー：Clients、親：ARMOR-ANDROID-CONTROL） |
 | スタック | Kotlin（JVM コアと Compose の Wear OS アプリ、Gradle）、Swift（コアと SwiftUI の Apple Watch アプリ）。検査は Python 3.11+ |
-| テスト | Python に 10 件（`python -m unittest discover -s tests`）と Kotlin テスト（`./gradlew test`） |
+| テスト | Python に 13 件（`python -m unittest discover -s tests`）と Kotlin テスト（`./gradlew test`） |
 | メッセージ | リレーのスイッチ、アラート、アラートの解除、返信の確認 |
 | 動作環境 | JDK 21 のある任意のコンピューター（Kotlin コア）または Mac（Swift コア）、スマートフォンとペアリングした Wear OS 3+ ウォッチまたは Apple Watch（アプリは CI でビルド済み、実行は未） |
 | 実機での動作 | まだなし：ウォッチでもエミュレーターでも実行されていません |
@@ -56,7 +56,7 @@
 | 領域 | 状態 | ここでの意味 |
 |---|---|---|
 | ソフトウェア | 🟡 | Kotlin と Swift のコアはすべてのメッセージを読み取って検査し、アラートをメモリ上に保持します。Wear OS アプリ、Apple Watch アプリ、Android と iPhone アプリの送信側は実装済みです。 |
-| テスト | 🟡 | Python テスト 10 件と Kotlin テストが、契約の同じ受理例・拒否例を実行します。Kotlin テストは CI で動きます。 |
+| テスト | 🟡 | Python テスト 13 件と Kotlin テストが、契約の同じ受理例・拒否例を実行します。Kotlin テストは CI で動きます。 |
 | ハードウェア | 🔴 | ウォッチ、エミュレーター、シミュレーターのいずれでも実行されていません。アプリは CI でのビルドと単体テストのみです。 |
 | ドキュメント | 🟡 | 8 言語、プロトコルの説明、契約が書かれ、最新です。 |
 
