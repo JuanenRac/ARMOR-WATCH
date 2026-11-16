@@ -10,6 +10,7 @@ import android.os.SystemClock
 import armor.watch.PhoneLink
 import armor.watch.WatchProtocol
 import com.google.android.gms.tasks.Tasks
+import com.google.android.gms.wearable.CapabilityClient
 import com.google.android.gms.wearable.MessageEvent
 import com.google.android.gms.wearable.Wearable
 import com.google.android.gms.wearable.WearableListenerService
@@ -20,7 +21,11 @@ class DataLayerPhoneLink(context: Context) : PhoneLink {
     private val app = context.applicationContext
 
     override fun send(path: String, text: String): Boolean = try {
-        val nodes = Tasks.await(Wearable.getNodeClient(app).connectedNodes, TIMEOUT_S, TimeUnit.SECONDS)
+        // The phones that declare the capability of the phone app come first; the connected ones are the fallback (see WatchProtocol.targets).
+        val capable = try {
+            Tasks.await(Wearable.getCapabilityClient(app).getCapability(WatchProtocol.CAPABILITY_PHONE, CapabilityClient.FILTER_REACHABLE), TIMEOUT_S, TimeUnit.SECONDS).nodes
+        } catch (_: Exception) { emptySet() }
+        val nodes = WatchProtocol.targets(capable, Tasks.await(Wearable.getNodeClient(app).connectedNodes, TIMEOUT_S, TimeUnit.SECONDS))
         val node = nodes.firstOrNull { it.isNearby } ?: nodes.firstOrNull()
         if (node == null) {
             false
