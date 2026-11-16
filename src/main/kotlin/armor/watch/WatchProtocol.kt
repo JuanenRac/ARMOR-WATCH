@@ -45,6 +45,19 @@ object WatchProtocol {
     const val VERSION = 1
     const val PATH_TO_WATCH = "/armor/alert"
     const val PATH_TO_PHONE = "/armor/alert/ack"
+
+    /** The capability the phone app declares and the watch looks for, to find the phone (a node) it must talk to instead of any device that is connected. */
+    const val CAPABILITY_PHONE = "armor_phone_alerts"
+
+    /** The capability the watch app declares and the phone looks for. */
+    const val CAPABILITY_WATCH = "armor_watch_alerts"
+
+    /**
+     * The nodes a message goes to: those that declare the capability of the other app, or, when none does (the capability is not known yet, an older
+     * build of the other app), the nodes that are connected. A message is only delivered to the app of the other side: the Data Layer matches it by package
+     * name and signature, which is why the two apps share the key and, for the watch, the package the phone app names in the capability.
+     */
+    fun <N> targets(capable: Collection<N>, connected: Collection<N>): List<N> = if (capable.isNotEmpty()) capable.toList() else connected.toList()
     const val RAW_MAX = 4096
     const val TITLE_MAX = 60
     const val TEXT_MAX = 160

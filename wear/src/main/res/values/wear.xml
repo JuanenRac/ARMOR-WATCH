@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The capability this app declares so the phone finds the watch app (see armor.watch.WatchProtocol.CAPABILITY_WATCH). -->
+<resources>
+    <string-array name="android_wear_capabilities">
+        <item>armor_watch_alerts</item>
+    </string-array>
+</resources>
