@@ -98,6 +98,7 @@ ARMOR-WATCH est le bout du poignet des apps du téléphone. [ARMOR-ANDROID-CONTR
 | `pendingMax` | 8 | Alertes gardées à la fois ; une critique n'est jamais jetée pour une moindre |
 | `rawMax` | 4096 | Un message plus long n'est pas lu |
 | `relay.enabled` | false | Fixé par le téléphone ; la montre ne montre rien tant qu'il n'est pas vrai |
+| `bindSender` | false | Wear OS uniquement ; réglé depuis l'app. Activé, la montre n'écoute que le téléphone qui a activé les alertes, jusqu'à leur arrêt ; désactivé, tout téléphone à portée peut envoyer |
 
 ## 🚀 Démarrage rapide
 

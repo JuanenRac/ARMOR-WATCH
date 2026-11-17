@@ -98,6 +98,7 @@ ARMOR-WATCH è l'estremità al polso delle app del telefono. [ARMOR-ANDROID-CONT
 | `pendingMax` | 8 | Avvisi tenuti insieme; uno critico non viene mai scartato per uno minore |
 | `rawMax` | 4096 | Un messaggio più lungo non viene letto |
 | `relay.enabled` | false | Impostato dal telefono; l'orologio non mostra nulla finché non è vero |
+| `bindSender` | false | Solo Wear OS; si imposta dall'app. Acceso, l'orologio ascolta solo il telefono che ha attivato gli avvisi, finché non vengono spenti; spento, qualsiasi telefono a portata può inviare |
 
 ## 🚀 Avvio rapido
 

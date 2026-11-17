@@ -98,6 +98,7 @@ ARMOR-WATCH 是手机应用在手腕上的一端。[ARMOR-ANDROID-CONTROL](https
 | `pendingMax` | 8 | 同时保留的警报数；严重警报不会为较轻的警报而被丢弃 |
 | `rawMax` | 4096 | 更长的消息不会被读取 |
 | `relay.enabled` | false | 由手机设置；在其为 true 之前手表不显示任何内容 |
+| `bindSender` | false | 仅 Wear OS；在应用中设置。开启时，手表只听取开启提醒的那部手机，直到提醒被关闭；关闭时，范围内的任何手机都可以发送 |
 
 ## 🚀 快速开始
 

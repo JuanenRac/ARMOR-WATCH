@@ -98,6 +98,7 @@ ARMOR-WATCH ist das Handgelenk-Ende der Telefon-Apps. [ARMOR-ANDROID-CONTROL](ht
 | `pendingMax` | 8 | Gleichzeitig gehaltene Alarme; ein kritischer wird nie für einen geringeren verworfen |
 | `rawMax` | 4096 | Eine längere Nachricht wird nicht gelesen |
 | `relay.enabled` | false | Vom Telefon gesetzt; die Uhr zeigt nichts, bis er wahr ist |
+| `bindSender` | false | Nur Wear OS; in der App gesetzt. An: Die Uhr hört nur auf das Telefon, das die Warnungen eingeschaltet hat, bis sie ausgeschaltet werden; aus: Jedes Telefon in Reichweite darf senden |
 
 ## 🚀 Schnellstart
 
