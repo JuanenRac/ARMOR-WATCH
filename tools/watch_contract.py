@@ -86,8 +86,21 @@ def run_examples(contract: dict | None = None) -> list[str]:
     return problems
 
 
+def settings_problems(contract: dict) -> list[str]:
+    """What is wrong with the settings the watch apps offer: each has a type, a default of that type and the platforms that offer it."""
+    problems = []
+    for name, setting in contract.get("settings", {}).items():
+        if setting.get("type") != "boolean" or not isinstance(setting.get("default"), bool):
+            problems.append(f"settings.{name} must be a boolean with a boolean default")
+        if setting.get("default") is not False:
+            problems.append(f"settings.{name} must be off by default")
+        if not setting.get("platforms") or not set(setting["platforms"]) <= {"wear", "watchos"}:
+            problems.append(f"settings.{name} must name the platforms that offer it")
+    return problems
+
+
 def main() -> int:
-    problems = run_examples()
+    problems = run_examples() + settings_problems(load())
     for line in problems:
         print(line)
     contract = load()

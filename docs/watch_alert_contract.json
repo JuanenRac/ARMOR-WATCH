@@ -15,6 +15,14 @@
     "ttlSeconds": [5, 600],
     "pendingMax": 8
   },
+  "settings": {
+    "bindSender": {
+      "type": "boolean",
+      "default": false,
+      "platforms": ["wear"],
+      "note": "Off (the default): any phone in reach may send. On: the phone that switched the alerts on is the only one listened to until they are switched off. Wear OS only: the Apple Watch talks to its one paired iPhone and has no sender to tell apart."
+    }
+  },
   "types": {
     "toWatch": ["relay", "alert", "alert_clear"],
     "toPhone": ["alert_ack"]

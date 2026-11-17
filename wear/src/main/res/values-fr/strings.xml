@@ -6,4 +6,6 @@
     <string name="confirm">Confirmer</string>
     <string name="confirmed">Confirmé</string>
     <string name="phone_out_of_reach">Téléphone hors de portée</string>
+    <string name="bind_sender_off">N\'importe quel téléphone peut envoyer : touchez pour n\'en écouter qu\'un</string>
+    <string name="bind_sender_on">Un seul téléphone : touchez pour écouter n\'importe lequel</string>
 </resources>

@@ -6,4 +6,6 @@
     <string name="confirm">確認</string>
     <string name="confirmed">確認済み</string>
     <string name="phone_out_of_reach">スマートフォンが圏外です</string>
+    <string name="bind_sender_off">どのスマートフォンからも受信します。タップすると1台だけに限定します</string>
+    <string name="bind_sender_on">1台のみ受信します。タップするとどのスマートフォンも受信します</string>
 </resources>

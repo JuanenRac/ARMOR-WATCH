@@ -47,10 +47,19 @@ object WatchRuntimeHolder {
     @Volatile
     private var instance: WatchRuntime? = null
 
+    private const val SETTINGS = "armor_watch_settings"
+
     fun get(context: Context): WatchRuntime =
         instance ?: synchronized(this) {
-            instance ?: WatchRuntime(DataLayerPhoneLink(context)) { SystemClock.elapsedRealtime() / 1000 }.also { instance = it }
+            val bound = context.applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE).getBoolean("bind_sender", false)
+            instance ?: WatchRuntime(DataLayerPhoneLink(context), { SystemClock.elapsedRealtime() / 1000 }, bound).also { instance = it }
         }
+
+    /** The person's choice, kept on the watch: off (any phone in reach may send) is the default. */
+    fun setBindSender(context: Context, on: Boolean) {
+        context.applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE).edit().putBoolean("bind_sender", on).apply()
+        get(context).bindSender = on
+    }
 }
 
 /** The messages of the phone arrive here, even when the screen is closed. Only the path of the alerts is listened to (the manifest says so and the session checks it again). */

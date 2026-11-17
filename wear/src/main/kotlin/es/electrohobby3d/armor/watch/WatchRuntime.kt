@@ -22,6 +22,11 @@ class WatchRuntime(link: PhoneLink, now: () -> Long, bindSender: Boolean = false
     private val session = WatchSession(link, now).also { it.bindSender = bindSender }
     private val state = MutableStateFlow<WatchScreen>(WatchScreen.Off)
 
+    /** Whether only the phone that switched the alerts on is listened to (the setting `bindSender` of the contract). */
+    var bindSender: Boolean
+        get() = synchronized(lock) { session.bindSender }
+        set(value) = synchronized(lock) { session.bindSender = value }
+
     /** What the screen draws now. */
     val screen: StateFlow<WatchScreen> = state.asStateFlow()
 

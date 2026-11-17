@@ -6,4 +6,6 @@
     <string name="confirm">Confirm</string>
     <string name="confirmed">Confirmed</string>
     <string name="phone_out_of_reach">Phone out of reach</string>
+    <string name="bind_sender_off">Any phone may send: tap to listen to one phone only</string>
+    <string name="bind_sender_on">One phone only: tap to listen to any phone</string>
 </resources>

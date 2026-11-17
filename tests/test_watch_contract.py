@@ -37,6 +37,23 @@ class ContractExamples(unittest.TestCase):
         for value in (None, [], "alert", 3, True):
             self.assertFalse(wc.validate(value, self.contract))
 
+    def test_the_settings_of_the_watch_are_off_by_default_and_say_where_they_apply(self):
+        self.assertEqual(wc.settings_problems(self.contract), [])
+        self.assertIs(self.contract["settings"]["bindSender"]["default"], False)
+        broken = {"settings": {"x": {"type": "boolean", "default": True, "platforms": ["wear"]}}}
+        self.assertTrue(wc.settings_problems(broken))
+
+    def test_the_session_and_the_wear_app_follow_the_setting_of_the_contract(self):
+        session = (ROOT / "src" / "main" / "kotlin" / "armor" / "watch" / "WatchSession.kt").read_text(encoding="utf-8")
+        self.assertRegex(session, r"var bindSender: Boolean = false")
+        holder = (ROOT / "wear" / "src" / "main" / "kotlin" / "es" / "electrohobby3d" / "armor" / "watch" / "DataLayer.kt").read_text(encoding="utf-8")
+        self.assertIn('"bind_sender"', holder)
+        values = ROOT / "wear" / "src" / "main" / "res"
+        for folder in ("values", "values-es", "values-de", "values-fr", "values-it", "values-ja", "values-zh", "values-pt-rPT"):
+            text = (values / folder / "strings.xml").read_text(encoding="utf-8")
+            for key in ("bind_sender_off", "bind_sender_on"):
+                self.assertIn(f'name="{key}"', text, f"{folder} lacks {key}")
+
     def test_a_boolean_is_not_a_number(self):
         message = {"type": "alert", "protocolVersion": 1, "alertId": "a", "severity": "info", "title": "t", "text": "x", "needsAck": False, "ttlSeconds": True}
         self.assertFalse(wc.validate(message, self.contract))

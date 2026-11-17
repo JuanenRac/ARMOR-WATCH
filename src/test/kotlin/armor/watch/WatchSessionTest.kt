@@ -157,4 +157,10 @@ class WatchSessionTest {
         assertFalse(phone.send("/x", "two"))
         assertEquals(listOf("/x" to "one"), phone.received)
     }
+
+    @Test
+    fun `the setting bindSender is off by default, as the contract says`() {
+        val settings = org.json.JSONObject(java.io.File("docs/watch_alert_contract.json").readText(Charsets.UTF_8)).getJSONObject("settings").getJSONObject("bindSender")
+        assertEquals(settings.getBoolean("default"), session.bindSender)
+    }
 }

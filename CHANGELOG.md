@@ -4,6 +4,8 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- The watch contract lists a `bindSender` setting (off by default, Wear OS only); the Wear OS app now offers it as a button that keeps the phone that switched the alerts on as the only sender listened to, with its texts in eight languages. The Apple Watch has one paired iPhone and no sender to tell apart.
+
 - **The watch can listen to one phone only:** `WatchSession.bindSender` (off by default, as always) keeps the node that switched the alerts on as the only sender whose alerts are taken until they are switched off, so another node of the Data Layer cannot raise or clear alerts; the service of the Data Layer now hands over the sender of each message.
 
 - **The watch sends the confirmation to the phone app that declares itself, not to any connected device:** the watch app declares a capability and looks for the capability of the phone app among the reachable nodes, and falls back to the connected nodes only when no node declares it. The identifier of the app is not changed. The note on how a message reaches the other side is in the protocol document; it has not been run on a real watch.

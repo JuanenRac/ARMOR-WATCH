@@ -6,4 +6,6 @@
     <string name="confirm">确认</string>
     <string name="confirmed">已确认</string>
     <string name="phone_out_of_reach">手机不在范围内</string>
+    <string name="bind_sender_off">任何手机都可发送：点按后仅监听一部手机</string>
+    <string name="bind_sender_on">仅监听一部手机：点按后监听任何手机</string>
 </resources>
