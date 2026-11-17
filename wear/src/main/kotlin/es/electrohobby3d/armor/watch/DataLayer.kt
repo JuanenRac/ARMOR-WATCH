@@ -52,7 +52,7 @@ object WatchRuntimeHolder {
     fun get(context: Context): WatchRuntime =
         instance ?: synchronized(this) {
             val bound = context.applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE).getBoolean("bind_sender", false)
-            instance ?: WatchRuntime(DataLayerPhoneLink(context), { SystemClock.elapsedRealtime() / 1000 }, bound).also { instance = it }
+            instance ?: WatchRuntime(DataLayerPhoneLink(context), bound) { SystemClock.elapsedRealtime() / 1000 }.also { instance = it }
         }
 
     /** The person's choice, kept on the watch: off (any phone in reach may send) is the default. */
