@@ -58,6 +58,27 @@ class WatchSessionTest {
     }
 
     @Test
+    fun withTheSenderBoundOnlyThePhoneThatSwitchedTheAlertsOnIsListenedTo() {
+        session.bindSender = true
+        assertTrue(session.onPhoneMessage(WatchProtocol.PATH_TO_WATCH, relay(true), "phone-a"))
+        assertFalse(session.onPhoneMessage(WatchProtocol.PATH_TO_WATCH, alert("x1"), "node-b"))
+        assertFalse(session.onPhoneMessage(WatchProtocol.PATH_TO_WATCH, relay(false), "node-b"))
+        assertIs<WatchScreen.Quiet>(session.screen())
+        assertTrue(session.onPhoneMessage(WatchProtocol.PATH_TO_WATCH, alert("x1"), "phone-a"))
+        assertEquals(1, lines().size)
+        // switched off by the same phone, it is free again for the next one
+        session.onPhoneMessage(WatchProtocol.PATH_TO_WATCH, relay(false), "phone-a")
+        assertTrue(session.onPhoneMessage(WatchProtocol.PATH_TO_WATCH, relay(true), "phone-c"))
+    }
+
+    @Test
+    fun withoutTheSwitchAnyPhoneCanSendAsBefore() {
+        assertTrue(session.onPhoneMessage(WatchProtocol.PATH_TO_WATCH, relay(true), "phone-a"))
+        assertTrue(session.onPhoneMessage(WatchProtocol.PATH_TO_WATCH, alert("x2"), "node-b"))
+        assertTrue(session.onPhoneMessage(WatchProtocol.PATH_TO_WATCH, alert("x3")))
+    }
+
+    @Test
     fun onlyThePathOfTheAlertsIsListenedTo() {
         assertFalse(session.onPhoneMessage("/armor/other", relay(true)))
         assertFalse(session.onPhoneMessage(WatchProtocol.PATH_TO_PHONE, relay(true)))

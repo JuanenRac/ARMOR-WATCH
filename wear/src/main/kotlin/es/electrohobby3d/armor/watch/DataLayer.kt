@@ -57,6 +57,6 @@ object WatchRuntimeHolder {
 class AlertListenerService : WearableListenerService() {
     override fun onMessageReceived(event: MessageEvent) {
         if (event.path != WatchProtocol.PATH_TO_WATCH) return
-        WatchRuntimeHolder.get(this).onPhoneMessage(event.path, String(event.data, Charsets.UTF_8))
+        WatchRuntimeHolder.get(this).onPhoneMessage(event.path, String(event.data, Charsets.UTF_8), event.sourceNodeId)
     }
 }

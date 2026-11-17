@@ -17,17 +17,17 @@ import kotlinx.coroutines.flow.asStateFlow
  * What the Android parts share: one [WatchSession] behind a lock (the service of the Data Layer and the screen are on different threads) and the screen model as a flow that the
  * Compose screen collects. No Android class is used here, so it is tested on a computer.
  */
-class WatchRuntime(link: PhoneLink, now: () -> Long) {
+class WatchRuntime(link: PhoneLink, now: () -> Long, bindSender: Boolean = false) {
     private val lock = Any()
-    private val session = WatchSession(link, now)
+    private val session = WatchSession(link, now).also { it.bindSender = bindSender }
     private val state = MutableStateFlow<WatchScreen>(WatchScreen.Off)
 
     /** What the screen draws now. */
     val screen: StateFlow<WatchScreen> = state.asStateFlow()
 
     /** A text from the phone on [path]; true when the screen changed. */
-    fun onPhoneMessage(path: String, raw: String): Boolean = synchronized(lock) {
-        val changed = session.onPhoneMessage(path, raw)
+    fun onPhoneMessage(path: String, raw: String, sender: String? = null): Boolean = synchronized(lock) {
+        val changed = session.onPhoneMessage(path, raw, sender)
         state.value = session.screen()
         changed
     }

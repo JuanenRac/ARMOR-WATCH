@@ -55,12 +55,24 @@ class WatchSession(private val link: PhoneLink, now: () -> Long) {
     private val inbox = AlertInbox(now)
 
     /**
+     * Off (the default, as always): any phone in reach may send. On: the phone that switched the alerts on is the only one listened to until the alerts are switched off again,
+     * so another phone or node of the Data Layer cannot raise or clear alerts on this watch. It needs the sender of each message ([onPhoneMessage] gets it from the Data Layer).
+     */
+    var bindSender: Boolean = false
+    private var boundSender: String? = null
+
+    /**
      * A text that came from the phone on [path]. Only the path of the alerts is listened to, and only what the contract allows is taken.
      * Returns true when the screen has changed.
      */
-    fun onPhoneMessage(path: String, raw: String): Boolean {
+    fun onPhoneMessage(path: String, raw: String, sender: String? = null): Boolean {
         if (path != WatchProtocol.PATH_TO_WATCH) return false
         val message = WatchProtocol.parse(raw) ?: return false
+        if (bindSender && sender != null) {
+            val bound = boundSender
+            if (bound != null && bound != sender) return false
+            if (message is RelayState) boundSender = if (message.enabled) sender else null
+        }
         return inbox.accept(message)
     }
 
