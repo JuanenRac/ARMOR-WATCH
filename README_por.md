@@ -98,6 +98,7 @@ O ARMOR-WATCH é o lado do pulso das apps do telemóvel. O [ARMOR-ANDROID-CONTRO
 | `pendingMax` | 8 | Alertas guardados ao mesmo tempo; um crítico nunca é descartado por um menor |
 | `rawMax` | 4096 | Uma mensagem mais longa não é lida |
 | `relay.enabled` | false | Definido pelo telemóvel; o relógio não mostra nada até ser verdadeiro |
+| `bindSender` | false | Só Wear OS; definido na app. Ligado, o relógio ouve apenas o telemóvel que ligou os alertas, até serem desligados; desligado, qualquer telemóvel ao alcance pode enviar |
 
 ## 🚀 Início rápido
 

@@ -98,6 +98,7 @@ ARMOR-WATCH is the wrist end of the phone apps. [ARMOR-ANDROID-CONTROL](https://
 | `pendingMax` | 8 | Alerts kept at once; a critical one is never dropped for a lesser one |
 | `rawMax` | 4096 | A message longer than this is not read |
 | `relay.enabled` | false | Set by the phone; the watch shows nothing until it is true |
+| `bindSender` | false | Wear OS only; set from the app. On, the watch listens only to the phone that switched the alerts on, until they are switched off; off, any phone in reach may send |
 
 ## 🚀 Quick start
 
