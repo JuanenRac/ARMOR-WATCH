@@ -20,7 +20,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 o posterior">
   <img src="https://img.shields.io/badge/Wear OS-Kotlin-7f52ff.svg" alt="Wear OS">
-  <img src="https://img.shields.io/badge/Tests-29%20passing-2ea44f.svg" alt="Pruebas">
+  <img src="https://img.shields.io/badge/Tests-31%20passing-2ea44f.svg" alt="Pruebas">
   <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Versión">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Madurez">
 </p>
@@ -39,7 +39,7 @@
 | Madurez | Andamiaje |
 | Rol | El cliente de reloj mínimo de A.R.M.O.R. (familia: Clients, padre: ARMOR-ANDROID-CONTROL) |
 | Stack | Kotlin (núcleo JVM y la app de Wear OS con Compose, Gradle), Swift (núcleo y la app del Apple Watch con SwiftUI); Python 3.11+ para las comprobaciones |
-| Pruebas | 29 en Python (`python -m unittest discover -s tests`) y las pruebas de Kotlin (`./gradlew test`) |
+| Pruebas | 31 en Python (`python -m unittest discover -s tests`) y las pruebas de Kotlin (`./gradlew test`) |
 | Mensajes | El interruptor del relé, una alerta, el borrado de una alerta y la confirmación de vuelta |
 | Funciona en | Cualquier ordenador con JDK 21 (núcleo Kotlin) o un Mac (núcleo Swift); un reloj Wear OS 3+ o un Apple Watch emparejado con el móvil (apps compiladas en CI, nunca ejecutadas) |
 | En hardware real | Ninguno todavía: solo lo ha ejecutado un gemelo simulado; la prueba en un reloj real está pendiente |
@@ -57,7 +57,7 @@ Cada línea es una parte de este repositorio y la luz dice hasta dónde llega ho
 | Área | Estado | Qué significa aquí |
 |---|---|---|
 | Software | 🟡 | Los núcleos Kotlin y Swift leen y comprueban cada mensaje y guardan las alertas en memoria; la app de Wear OS, la app del Apple Watch y los emisores de las apps Android e iPhone están escritos. |
-| Pruebas | 🟡 | 29 pruebas de Python y las de Kotlin ejecutan los mismos ejemplos aceptados y rechazados del contrato; las de Kotlin corren en CI. |
+| Pruebas | 🟡 | 31 pruebas de Python y las de Kotlin ejecutan los mismos ejemplos aceptados y rechazados del contrato; las de Kotlin corren en CI. |
 | Hardware | 🟠 | Ningún reloj real ni emulador las ha ejecutado; un gemelo simulado (`tools/watch_simulation.py`) ejecuta toda la conversación en memoria (evidencia: simulador), y la prueba en un reloj real sigue pendiente. |
 | Documentación | 🟡 | Ocho idiomas, las notas del protocolo y el contrato están escritos y al día. |
 
