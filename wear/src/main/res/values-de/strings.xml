@@ -6,4 +6,6 @@
     <string name="confirm">Bestätigen</string>
     <string name="confirmed">Bestätigt</string>
     <string name="phone_out_of_reach">Telefon nicht erreichbar</string>
+    <string name="bind_sender_off">Jedes Handy darf senden: tippen, um nur auf eines zu hören</string>
+    <string name="bind_sender_on">Nur ein Handy: tippen, um jedes zuzulassen</string>
 </resources>

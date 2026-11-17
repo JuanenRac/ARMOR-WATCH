@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val runtime = WatchRuntimeHolder.get(this)
-        setContent { WatchApp(runtime) }
+        setContent { WatchApp(runtime) { on -> WatchRuntimeHolder.setBindSender(this, on) } }
     }
 }
 
@@ -59,7 +59,7 @@ private fun colourOf(severity: Severity): Color = when (severity) {
 }
 
 @Composable
-fun WatchApp(runtime: WatchRuntime) {
+fun WatchApp(runtime: WatchRuntime, onBindSender: (Boolean) -> Unit = {}) {
     // an alert that expires leaves the screen without any message, so the screen looks at the clock once a second
     LaunchedEffect(runtime) {
         while (true) {
@@ -70,22 +70,32 @@ fun WatchApp(runtime: WatchRuntime) {
     val screen by runtime.screen.collectAsState()
     MaterialTheme {
         when (val current = screen) {
-            WatchScreen.Off -> Message(stringResource(R.string.alerts_off))
-            WatchScreen.Quiet -> Message(stringResource(R.string.no_alerts))
-            is WatchScreen.Alerts -> AlertList(current.lines, runtime)
+            WatchScreen.Off -> Message(stringResource(R.string.alerts_off), runtime, onBindSender)
+            WatchScreen.Quiet -> Message(stringResource(R.string.no_alerts), runtime, onBindSender)
+            is WatchScreen.Alerts -> AlertList(current.lines, runtime, onBindSender)
         }
     }
 }
 
 @Composable
-private fun Message(text: String) {
+private fun Message(text: String, runtime: WatchRuntime, onBindSender: (Boolean) -> Unit) {
     Column(Modifier.fillMaxSize().padding(24.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(text, textAlign = TextAlign.Center)
+        BindSenderButton(runtime, onBindSender)
+    }
+}
+
+/** The setting `bindSender`: off (any phone in reach may send, the default) or on (only the phone that switched the alerts on). The label says what a tap does next. */
+@Composable
+private fun BindSenderButton(runtime: WatchRuntime, onBindSender: (Boolean) -> Unit) {
+    var bound by remember { mutableStateOf(runtime.bindSender) }
+    Button(onClick = { bound = !bound; onBindSender(bound) }) {
+        Text(stringResource(if (bound) R.string.bind_sender_on else R.string.bind_sender_off), textAlign = TextAlign.Center)
     }
 }
 
 @Composable
-private fun AlertList(lines: List<AlertLine>, runtime: WatchRuntime) {
+private fun AlertList(lines: List<AlertLine>, runtime: WatchRuntime, onBindSender: (Boolean) -> Unit) {
     val scope = rememberCoroutineScope()
     var notice by remember { mutableStateOf<ConfirmResult?>(null) }
     ScalingLazyColumn(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -106,5 +116,6 @@ private fun AlertList(lines: List<AlertLine>, runtime: WatchRuntime) {
         if (notice == ConfirmResult.LINK_DOWN) {
             item { Text(stringResource(R.string.phone_out_of_reach), color = AMBER, textAlign = TextAlign.Center) }
         }
+        item { BindSenderButton(runtime, onBindSender) }
     }
 }

@@ -6,4 +6,6 @@
     <string name="confirm">Confirmar</string>
     <string name="confirmed">Confirmado</string>
     <string name="phone_out_of_reach">Telemóvel fora de alcance</string>
+    <string name="bind_sender_off">Qualquer telemóvel pode enviar: toque para ouvir só um</string>
+    <string name="bind_sender_on">Só um telemóvel: toque para ouvir qualquer um</string>
 </resources>
