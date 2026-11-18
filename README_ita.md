@@ -144,7 +144,7 @@ I test Kotlin girano in CI; nessun test è stato eseguito su un orologio o su un
 ## 📂 Struttura del repository
 
 <p align="center">
-  <img src="images/repository-structure.svg" alt="Repository structure of ARMOR-WATCH" width="100%">
+  <img src="images/repository-structure.svg" alt="Struttura del repository di ARMOR-WATCH" width="100%">
 </p>
 
 <details>
@@ -155,8 +155,12 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol (i messaggi e i loro controlli) e AlertInbox (gli avvisi sullo schermo)
 │   └── test/                               gli stessi esempi del contratto e le regole della casella
-├── wear/                               l'app Wear OS: schermo, servizio Data Layer e runtime
-├── watchos/                            l'app Apple Watch: nucleo Swift, schermo e WatchConnectivity
+├── wear/
+│   ├── src/                                lo schermo, il servizio Data Layer e il runtime
+│   └── build.gradle.kts                    la compilazione dell'app (solo con -ParmorWear)
+├── watchos/
+│   ├── Sources/                            il nucleo Swift: messaggi, casella, sessione
+│   └── App/                                lo schermo e WatchConnectivity
 ├── tests/                                  il contratto verificato in Python
 ├── docs/                                   il contratto e il protocollo
 ├── tools/                                  controlli e contratto

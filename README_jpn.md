@@ -144,7 +144,7 @@ Kotlin テストは CI で動きます。ウォッチでもエミュレーター
 ## 📂 リポジトリの構成
 
 <p align="center">
-  <img src="images/repository-structure.svg" alt="Repository structure of ARMOR-WATCH" width="100%">
+  <img src="images/repository-structure.svg" alt="ARMOR-WATCH のリポジトリ構造" width="100%">
 </p>
 
 <details>
@@ -155,8 +155,12 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol（メッセージとその検査）と AlertInbox（画面上のアラート）
 │   └── test/                               契約と同じ例と受信箱のルール
-├── wear/                               Wear OS アプリ：画面、Data Layer サービス、ランタイム
-├── watchos/                            Apple Watch アプリ：Swift コア、画面、WatchConnectivity
+├── wear/
+│   ├── src/                                画面、Data Layer サービス、ランタイム
+│   └── build.gradle.kts                    アプリのビルド（-ParmorWear 指定時のみ）
+├── watchos/
+│   ├── Sources/                            Swift コア：メッセージ、受信箱、セッション
+│   └── App/                                画面と WatchConnectivity
 ├── tests/                                  Python で検査した契約
 ├── docs/                                   契約とプロトコル
 ├── tools/                                  検査と契約
