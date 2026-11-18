@@ -144,7 +144,7 @@ Kotlin 测试在 CI 中运行；没有任何测试在手表或模拟器上运行
 ## 📂 仓库结构
 
 <p align="center">
-  <img src="images/repository-structure.svg" alt="Repository structure of ARMOR-WATCH" width="100%">
+  <img src="images/repository-structure.svg" alt="ARMOR-WATCH 的仓库结构" width="100%">
 </p>
 
 <details>
@@ -155,8 +155,12 @@ ARMOR-WATCH/
 ├── src/
 │   ├── main/                               WatchProtocol（消息及其检查）和 AlertInbox（屏幕上的警报）
 │   └── test/                               与契约相同的示例以及收件箱的规则
-├── wear/                               Wear OS 应用：界面、Data Layer 服务和运行时
-├── watchos/                            Apple Watch 应用：Swift 核心、界面和 WatchConnectivity
+├── wear/
+│   ├── src/                                屏幕、Data Layer 服务和运行时
+│   └── build.gradle.kts                    应用的构建（仅在使用 -ParmorWear 时）
+├── watchos/
+│   ├── Sources/                            Swift 核心：消息、收件箱、会话
+│   └── App/                                屏幕和 WatchConnectivity
 ├── tests/                                  用 Python 检查的契约
 ├── docs/                                   契约与协议
 ├── tools/                                  检查与契约
