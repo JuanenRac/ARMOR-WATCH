@@ -4,6 +4,7 @@ All notable changes to this project are documented here.
 
 ## [Unreleased]
 
+- **The shared tools of the manifest and the status lights gain an opt-in strict check of the evidence:** `sync_manifests.py` and `status_lights.py` take `--strict-evidence` (off by default; `ARMOR_STRICT_EVIDENCE=1` switches it on for `armor_ci_validate.py`).
 - The watch contract lists a `bindSender` setting (off by default, Wear OS only); the Wear OS app now offers it as a button that keeps the phone that switched the alerts on as the only sender listened to, with its texts in eight languages. The Apple Watch has one paired iPhone and no sender to tell apart.
 
 - **The watch can listen to one phone only:** `WatchSession.bindSender` (off by default, as always) keeps the node that switched the alerts on as the only sender whose alerts are taken until they are switched off, so another node of the Data Layer cannot raise or clear alerts; the service of the Data Layer now hands over the sender of each message.
