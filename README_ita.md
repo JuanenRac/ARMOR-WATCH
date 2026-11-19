@@ -21,7 +21,7 @@
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 o successiva">
   <img src="https://img.shields.io/badge/Wear OS-Kotlin-7f52ff.svg" alt="Wear OS">
   <img src="https://img.shields.io/badge/Tests-31%20passing-2ea44f.svg" alt="Test">
-  <img src="https://img.shields.io/badge/Version-0.0.2-0f6cbd.svg" alt="Versione">
+  <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Versione">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturità">
 </p>
 
@@ -35,7 +35,7 @@
 
 | | |
 |---|---|
-| Versione | `0.0.2` |
+| Versione | `0.0.3` |
 | Maturità | Impalcatura |
 | Ruolo | Il client orologio minimale di A.R.M.O.R. (famiglia: Clients, genitore: ARMOR-ANDROID-CONTROL) |
 | Stack | Kotlin (nucleo JVM e app Wear OS con Compose, Gradle), Swift (nucleo e app Apple Watch con SwiftUI); Python 3.11+ per i controlli |
