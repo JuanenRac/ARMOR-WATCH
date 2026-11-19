@@ -24,7 +24,7 @@ targets:
       path: Generated/Info.plist
       properties:
         CFBundleDisplayName: A.R.M.O.R.
-        CFBundleShortVersionString: "0.0.2"
+        CFBundleShortVersionString: "0.0.3"
         CFBundleVersion: "2"
         CFBundleDevelopmentRegion: en
         CFBundleLocalizations: [en, es, de, fr, it, ja, zh-Hans, pt-PT]
@@ -34,7 +34,7 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: es.electrohobby3d.armor.ios.watchkitapp
-        MARKETING_VERSION: "0.0.2"
-        CURRENT_PROJECT_VERSION: "2"
+        MARKETING_VERSION: "0.0.3"
+        CURRENT_PROJECT_VERSION: "3"
         SWIFT_VERSION: "5.9"
         CODE_SIGNING_ALLOWED: NO
