@@ -20,7 +20,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 or later">
   <img src="https://img.shields.io/badge/Wear OS-Kotlin-7f52ff.svg" alt="Wear OS">
-  <img src="https://img.shields.io/badge/Tests-31%20passing-2ea44f.svg" alt="Tests">
+  <img src="https://img.shields.io/badge/Tests-124%20passing-2ea44f.svg" alt="Tests">
   <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturity">
 </p>
@@ -39,7 +39,7 @@
 | 成熟度 | 雏形 |
 | 角色 | A.R.M.O.R. 的极简手表客户端（家族：Clients，上级：ARMOR-ANDROID-CONTROL） |
 | 技术栈 | Kotlin（JVM 核心和使用 Compose 的 Wear OS 应用，Gradle），Swift（核心和使用 SwiftUI 的 Apple Watch 应用）；检查用 Python 3.11+ |
-| 测试 | Python 中 31 个（`python -m unittest discover -s tests`）和 Kotlin 测试（`./gradlew test`） |
+| 测试 | 124 个（Python 中 72 个（`python -m unittest discover -s tests`）和 Kotlin 中 52 个（`./gradlew test`）） |
 | 消息 | 转发开关、一条警报、警报的清除以及回传的确认 |
 | 运行于 | 任何带 JDK 21 的电脑（Kotlin 核心）或 Mac（Swift 核心）；与手机配对的 Wear OS 3+ 手表或 Apple Watch（应用已在 CI 中构建，尚未运行） |
 | 真实硬件 | 尚无：只有模拟孪生体运行过；真实手表上的测试待进行 |
@@ -57,7 +57,7 @@
 | 领域 | 状态 | 在这里的含义 |
 |---|---|---|
 | 软件 | 🟡 | Kotlin 和 Swift 核心读取并检查每条消息，并把警报保存在内存中；Wear OS 应用、Apple Watch 应用以及 Android 和 iPhone 应用中的发送端已编写。 |
-| 测试 | 🟡 | 31 个 Python 测试和 Kotlin 测试运行契约中相同的被接受和被拒绝示例；Kotlin 测试在 CI 中运行。 |
+| 测试 | 🟡 | 72 个 Python 测试和 Kotlin 测试运行契约中相同的被接受和被拒绝示例；Kotlin 测试在 CI 中运行。 |
 | 硬件 | 🟠 | 没有真实手表或模拟器运行过它们；模拟孪生体（`tools/watch_simulation.py`）在内存中运行整个对话（证据：模拟器），真实手表上的测试仍待进行。 |
 | 文档 | 🟡 | 八种语言、协议说明和契约均已编写并保持最新。 |
 
