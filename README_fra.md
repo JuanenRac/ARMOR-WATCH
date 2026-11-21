@@ -20,7 +20,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/License-GPL%203.0--or--later-blue.svg" alt="GPL 3.0 ou ultérieure">
   <img src="https://img.shields.io/badge/Wear OS-Kotlin-7f52ff.svg" alt="Wear OS">
-  <img src="https://img.shields.io/badge/Tests-31%20passing-2ea44f.svg" alt="Tests">
+  <img src="https://img.shields.io/badge/Tests-124%20passing-2ea44f.svg" alt="Tests">
   <img src="https://img.shields.io/badge/Version-0.0.3-0f6cbd.svg" alt="Version">
   <img src="https://img.shields.io/badge/Maturity-scaffolding-FFB020.svg" alt="Maturité">
 </p>
@@ -39,7 +39,7 @@
 | Maturité | Ébauche |
 | Rôle | Le client montre minimal d'A.R.M.O.R. (famille : Clients, parent : ARMOR-ANDROID-CONTROL) |
 | Stack | Kotlin (noyau JVM et l'app Wear OS avec Compose, Gradle), Swift (noyau et l'app Apple Watch avec SwiftUI) ; Python 3.11+ pour les vérifications |
-| Tests | 31 en Python (`python -m unittest discover -s tests`) et les tests Kotlin (`./gradlew test`) |
+| Tests | 124 (72 en Python (`python -m unittest discover -s tests`) et 52 en Kotlin (`./gradlew test`)) |
 | Messages | L'interrupteur du relais, une alerte, l'effacement d'une alerte et la confirmation en retour |
 | Fonctionne sur | Tout ordinateur avec un JDK 21 (noyau Kotlin) ou un Mac (noyau Swift) ; une montre Wear OS 3+ ou une Apple Watch appairée au téléphone (apps compilées en CI, jamais exécutées) |
 | Sur matériel réel | Aucun pour l'instant : seul un jumeau simulé l'a exécuté ; l'essai sur une vraie montre reste à faire |
@@ -57,7 +57,7 @@ Chaque ligne est une partie de ce dépôt et le feu dit où elle en est aujourd'
 | Domaine | État | Ce que cela veut dire ici |
 |---|---|---|
 | Logiciel | 🟡 | Les noyaux Kotlin et Swift lisent et vérifient chaque message et gardent les alertes en mémoire ; l'app Wear OS, l'app Apple Watch et les émetteurs des apps Android et iPhone sont écrits. |
-| Tests | 🟡 | 31 tests Python et les tests Kotlin exécutent les mêmes exemples acceptés et refusés du contrat ; les tests Kotlin tournent en CI. |
+| Tests | 🟡 | 72 tests Python et les tests Kotlin exécutent les mêmes exemples acceptés et refusés du contrat ; les tests Kotlin tournent en CI. |
 | Matériel | 🟠 | Aucune vraie montre ni aucun émulateur ne les a exécutées ; un jumeau simulé (`tools/watch_simulation.py`) exécute toute la conversation en mémoire (preuve : simulateur), et l'essai sur une vraie montre reste à faire. |
 | Documentation | 🟡 | Huit langues, les notes du protocole et le contrat sont écrits et à jour. |
 
